@@ -1,3 +1,4 @@
+import 'package:dream_tasks/screens/calendar_screen.dart';
 import 'package:dream_tasks/screens/goals_screen.dart';
 import 'package:dream_tasks/widgets/home_button.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   delegate: SliverChildListDelegate(
                     <Widget>[
-                      HomeButton("Calendário", Icons.calendar_today, Colors.pinkAccent, 10, 0, 10, GoalsScreen()),
+                      HomeButton("Calendário", Icons.calendar_today, Colors.pinkAccent, 10, 0, 10, CalendarScreen()),
                       HomeButton("Metas diárias", Icons.check_circle, Colors.purpleAccent, 0, 10, 10, GoalsScreen()),
                       HomeButton("Anotações", Icons.speaker_notes, Colors.blueAccent, 10, 0, 0, GoalsScreen()),
                       FlatButton(

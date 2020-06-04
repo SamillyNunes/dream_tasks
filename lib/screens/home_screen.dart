@@ -64,6 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       HomeButton("Calendário", Icons.calendar_today, Colors.pinkAccent, 10, 0, 10, CalendarScreen()),
                       HomeButton("Metas diárias", Icons.check_circle, Colors.purpleAccent, 0, 10, 10, GoalsScreen()),
                       HomeButton("Anotações", Icons.speaker_notes, Colors.blueAccent, 10, 0, 0, GoalsScreen()),
+                      HomeButton("Lembretes", Icons.add_alert, Colors.yellowAccent, 0, 10, 0, GoalsScreen()),
                       FlatButton(
                         onPressed: (){
                           Navigator.of(context).push(

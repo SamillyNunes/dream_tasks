@@ -1,3 +1,4 @@
+import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/stores/task_store.dart';
 import 'package:dream_tasks/widgets/custom_list_tile.dart';
@@ -68,7 +69,10 @@ class GoalsScreen extends StatelessWidget {
                     child: FlatButton(
                       child: Icon(Icons.add, color: Colors.white,),
                       onPressed: (){
-                        _addGoal(context);
+                        // _addGoal(context);
+                        Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_)=>AddGoalScreen(_listTaskStore))
+                      );
                       }
                     ),
                   )
@@ -167,7 +171,9 @@ class GoalsScreen extends StatelessWidget {
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   child: RaisedButton(
-                    onPressed: _listTaskStore.addTask,
+                    // onPressed: _listTaskStore.addTask,
+                    onPressed: (){
+                    },
                     color: _backgroundColor,
                     child: Text(
                       "Adicionar",

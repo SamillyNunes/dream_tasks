@@ -5,6 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 class CustomListTile extends StatelessWidget {
 
+  final Color _backgroundColor = Colors.purple[300];
   final ListTaskStore lts;
   final int index;
   
@@ -27,7 +28,10 @@ class CustomListTile extends StatelessWidget {
                 decoration: lts.tasks[index].done ? TextDecoration.lineThrough : null
               ),
             ),
-            leading: lts.tasks[index].done ? Icon(Icons.check_box) : Icon(Icons.check_box_outline_blank,
+            
+            leading: lts.tasks[index].done ? 
+              Icon(Icons.check_box, color: _backgroundColor,) : 
+              Icon(Icons.check_box_outline_blank,
             ),
           ), 
           actionPane: SlidableBehindActionPane(),

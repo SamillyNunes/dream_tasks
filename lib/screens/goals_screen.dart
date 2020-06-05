@@ -1,43 +1,54 @@
 import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
-import 'package:dream_tasks/stores/task_store.dart';
 import 'package:dream_tasks/widgets/custom_list_tile.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-class GoalsScreen extends StatelessWidget {
+class GoalsScreen extends StatefulWidget {
+  @override
+  _GoalsScreenState createState() => _GoalsScreenState();
+}
 
-  Color _backgroundColor = Colors.purple[300];
+class _GoalsScreenState extends State<GoalsScreen> {
+  final Color _backgroundColor = Colors.purple[300];
+  final String _fontFamily = "Raleway";
 
   final _scaffoldGlobalKey = GlobalKey<ScaffoldState>(); 
-  // final _inputController = GlobalKey<Te
+  
+  final ListTaskStore _listTaskStore = ListTaskStore();
 
-  ListTaskStore _listTaskStore = ListTaskStore();
+  int _day;
+  int _weekDay;
 
+  @override
+  void initState() {
+    super.initState();
+    _day = DateTime.now().day;
+    _weekDay =DateTime.now().weekday;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         key: _scaffoldGlobalKey,
-        // appBar: AppBar(
-        //   title: Text("Metas diárias"),
-        // ),
+        // backgroundColor: Color.fromRGBO(r, g, b, opacity),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                DayWidget(),
+                DayWidget(_day-2, _weekDay-2),
                 SizedBox(width: 10,),
-                DayWidget(),
+                DayWidget(_day-1, _weekDay-1),
                 SizedBox(width: 10,),
-                DayWidget(currentDay: true,),
+                DayWidget(_day, _weekDay, currentDay: true),
                 SizedBox(width: 10,),
-                DayWidget(),
+                DayWidget(_day+1, _weekDay+1),
                 SizedBox(width: 10,),
-                DayWidget(),
+                DayWidget(_day+2, _weekDay+2),
               ],
             ),
             Row(
@@ -50,7 +61,8 @@ class GoalsScreen extends StatelessWidget {
                     style: TextStyle(
                       color: _backgroundColor,
                       fontWeight: FontWeight.bold,
-                      fontSize: 40
+                      fontSize: 40,
+                      fontFamily: _fontFamily
                     ),
                     textAlign: TextAlign.left,
                   ),
@@ -63,11 +75,22 @@ class GoalsScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       border: Border.all(color:_backgroundColor, width: 1),
                       borderRadius: BorderRadius.horizontal(left:Radius.circular(100), right:Radius.circular(100)),
-                      color: _backgroundColor
+                      // color: _backgroundColor
                     ),
                     // color: _backgroundColor,
                     child: FlatButton(
-                      child: Icon(Icons.add, color: Colors.white,),
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.add, color: _backgroundColor,),
+                          Text(
+                            'Add meta',
+                            style: TextStyle(
+                              color: _backgroundColor,
+                              fontFamily: _fontFamily
+                            ),
+                          )
+                        ],
+                      ),
                       onPressed: (){
                         // _addGoal(context);
                         Navigator.of(context).push(
@@ -83,7 +106,8 @@ class GoalsScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: Card(
-                  color: Colors.white,
+                  color: Colors.grey[350],
+                  elevation: 5,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16)
                   ),
@@ -124,72 +148,5 @@ class GoalsScreen extends StatelessWidget {
     );
   }
 
-  void _addGoal(context){
-    showModalBottomSheet(
-      context: context, 
-      shape:  RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
-      ),
-      builder: (builder){
-        return Container(
-          height: MediaQuery.of(context).size.height*0.4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child: Center(
-                  child: Text(
-                    "Adicionar meta",
-                    style: TextStyle(
-                      color: _backgroundColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      
-                    ),
-                  ),
-                )
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10,top: 10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width*0.9,
-                  child: TextFormField(
-                    onChanged: _listTaskStore.setNewTask,
-                    cursorColor: _backgroundColor,                
-                    decoration: InputDecoration(
-                      hoverColor: _backgroundColor,
-                      focusColor: _backgroundColor,
-                      hintText: "Nome da meta:",                  
-                      prefixIcon: Icon(Icons.track_changes)
-                    ),
-                  )
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:90, left:10, right:10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: RaisedButton(
-                    // onPressed: _listTaskStore.addTask,
-                    onPressed: (){
-                    },
-                    color: _backgroundColor,
-                    child: Text(
-                      "Adicionar",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                    ),
-                  )
-                ),
-              )
-            ],
-          ),
-        );
-      }
-    );
-     
-  }
 }
 

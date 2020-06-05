@@ -8,53 +8,56 @@ const  Color _dayBackground = Colors.white;
 
 class DayWidget extends StatelessWidget {
 
+  final int day;
+  final int weekDay;
   final bool currentDay;
 
-  DayWidget({this.currentDay=false});
+  final List<String> week = ["Seg","Ter","Qua","Qui","Sex","Sab","Dom"];
+
+  DayWidget(this.day, this.weekDay, {this.currentDay=false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(0),
+      margin: EdgeInsets.zero,
       // color: Colors.white,
-      height: MediaQuery.of(context).size.height * 0.16,
-      width: MediaQuery.of(context).size.width * 0.14,
+      height: MediaQuery.of(context).size.height * 0.13,
+      width: MediaQuery.of(context).size.width * 0.12,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.elliptical(100, 90)),
           border: Border.all(
-            color: currentDay ? _backgroundColor : _secundaryBackground, 
+            color: currentDay ? _backgroundColor : Colors.transparent, 
             width: 2
           ),
-          color: currentDay ? _backgroundColor : _secundaryBackground, 
+          color: currentDay ? _backgroundColor : Colors.transparent, 
       ),
       child: FlatButton(
-        onPressed: () {},
+        onPressed: () {
+          print(DateTime.now().weekday.toString());
+        },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
+            Padding( //widget do dia da semana
               padding: EdgeInsets.only(bottom: 5),
               child: Text(
-                "Seg",
+                week[weekDay-1].toUpperCase(),
                 style: TextStyle(
-                  fontSize: 8,
+                  fontSize: 7,
                   color: currentDay ? _textColor : _backgroundColor, 
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.all(0),
+            Container( //widget da data 
               // margin: EdgeInsets.all(2),
+              width: 90,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  border: Border.all(
-                    color: currentDay ? _dayBackground : _secundaryBackground, 
-                    width: 2
-                  ),
-                  color: currentDay ? _dayBackground : _secundaryBackground, 
+                  shape: BoxShape.circle,
+                  color: currentDay ? _dayBackground : Colors.transparent, 
               ),
               child: Text(
-                "23",
+                day.toString(),
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: currentDay ? _textColor : _backgroundColor, 

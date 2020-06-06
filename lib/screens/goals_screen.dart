@@ -21,6 +21,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
   int _day;
   int _weekDay;
 
+  //calculando o dia da semana para os dias antes e depois do dia atual
+  int computeWeekDay(int day){
+    return day <0 ? 7+(day) : (day>7 ? day-7 : day );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,15 +45,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                DayWidget(_day-2, _weekDay-2),
+                DayWidget(_day-2,  computeWeekDay(_weekDay-2)),
                 SizedBox(width: 10,),
-                DayWidget(_day-1, _weekDay-1),
+                DayWidget(_day-1, computeWeekDay(_weekDay-1)),
                 SizedBox(width: 10,),
                 DayWidget(_day, _weekDay, currentDay: true),
                 SizedBox(width: 10,),
-                DayWidget(_day+1, _weekDay+1),
+                DayWidget(_day+1, computeWeekDay(_weekDay+1)),
                 SizedBox(width: 10,),
-                DayWidget(_day+2, _weekDay+2),
+                DayWidget(_day+2, computeWeekDay(_weekDay+2)),
               ],
             ),
             Row(

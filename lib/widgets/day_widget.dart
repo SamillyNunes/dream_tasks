@@ -6,10 +6,11 @@ const Color _textColor = Colors.black;
 // Color _secundaryTextColor = Colors.grey[350];
 const  Color _dayBackground = Colors.white;
 
+
 class DayWidget extends StatelessWidget {
 
   final int day;
-  final int weekDay;
+  int weekDay;
   final bool currentDay;
 
   final List<String> week = ["Seg","Ter","Qua","Qui","Sex","Sab","Dom"];
@@ -42,7 +43,8 @@ class DayWidget extends StatelessWidget {
             Padding( //widget do dia da semana
               padding: EdgeInsets.only(bottom: 5),
               child: Text(
-                week[weekDay-1].toUpperCase(),
+                week[weekDay-1],
+                // 'te',
                 style: TextStyle(
                   fontSize: 7,
                   color: currentDay ? _textColor : _backgroundColor, 

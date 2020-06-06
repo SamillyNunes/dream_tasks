@@ -16,15 +16,19 @@ abstract class _ListEventStore with Store {
     dateSelected = newDate;
   }
   
-  ObservableList<DayEvent> events = ObservableList<DayEvent>();
-  ObservableMap<String,List<DayEvent>> events2 = ObservableMap<String,List<DayEvent>>();
+  ObservableMap<String,List<DayEvent>> events = ObservableMap<String,List<DayEvent>>();
 
   @action
   void addEvent(String titleEvent, String description, DateTime date){
-    // events.add(new DayEvent(titleEvent, description, date));
     String chave = date.day.toString()+"0"+date.month.toString()+date.year.toString();
-    print("chave::"+chave);
-    events2[chave].add(new DayEvent(titleEvent, description, date));
+
+    //Se nao tiver a chave, ele cria uma nova
+    if(!events.containsKey(chave)){
+      events.addAll({
+        '$chave':[]
+      });
+    } 
+    events[chave].add(new DayEvent(titleEvent, description, date));
     
   }
 }

@@ -63,7 +63,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     calendarController: _calendarController,
                     onDayLongPressed: (date, list){
                       print("Agora");
-                      _listEvents.addEvent("Exemplo de evento", "Essa eh uma descricao bb", date);
+                      _listEvents.addEvent("Exemplo de evento "+date.day.toString(), "Essa eh uma descricao bb", date);
                     },
                     onDaySelected: (date, listEvents){
                       print("day selected");
@@ -103,11 +103,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 builder: (context){
                   DateTime dayS = _listEvents.dateSelected;
                   String chave = dayS.day.toString()+"0"+dayS.month.toString()+dayS.year.toString();
-                  return _listEvents.events2.containsKey(chave) ?
+                  return _listEvents.events.containsKey(chave) ?
                     ListView.builder(
-                      itemCount: _listEvents.events2[chave].length,
+                      itemCount: _listEvents.events[chave].length,
                       itemBuilder: (context, index){
-                        DayEvent de = _listEvents.events2[chave][index];
+                        DayEvent de = _listEvents.events[chave][index];
                         return _eventCard(de.title, de.description);
                       }
                     ) : Container();

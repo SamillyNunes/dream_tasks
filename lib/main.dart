@@ -1,3 +1,4 @@
+import 'package:dream_tasks/screens/goals_screen.dart';
 import 'package:dream_tasks/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Colors.white,
         cursorColor: Colors.deepPurpleAccent,
-        scaffoldBackgroundColor: Colors.black,     
+        scaffoldBackgroundColor: Colors.black,   
+          
       ),
       home: HomeScreen(),
     );

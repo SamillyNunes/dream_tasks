@@ -1,4 +1,5 @@
 import 'package:dream_tasks/widgets/days_sequence_widget.dart';
+import 'package:dream_tasks/widgets/drawer.dart';
 import 'package:dream_tasks/widgets/home_check_widget.dart';
 import 'package:dream_tasks/widgets/home_goal_widget.dart';
 import 'package:dream_tasks/widgets/project_widget.dart';
@@ -14,6 +15,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        endDrawer: CustomDrawer(),
+        drawerEdgeDragWidth: MediaQuery.of(context).size.width*0.4,
         body: ListView(
           children: <Widget>[
             Padding(
@@ -39,10 +42,10 @@ class HomeScreen extends StatelessWidget {
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    ProjectWidget('Flutter', 50),
-                    ProjectWidget('Fitness', 10),
-                    ProjectWidget('Teste', 90),
-                    ProjectWidget('Fitness', 30),
+                    ProjectWidget('Flutter', 0.5),
+                    ProjectWidget('Fitness', 0.1),
+                    ProjectWidget('Teste', 0.9),
+                    ProjectWidget('Fitness', 0.3),
                   ],
                 )
               )

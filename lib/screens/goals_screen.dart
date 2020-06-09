@@ -1,29 +1,24 @@
-import 'package:dream_tasks/screens/add_goal_screen.dart';
-import 'package:dream_tasks/stores/list_task_store.dart';
-import 'package:dream_tasks/widgets/custom_list_tile.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
+const String _defaultFontFamily = 'Raleway';
 class GoalsScreen extends StatefulWidget {
   @override
   _GoalsScreenState createState() => _GoalsScreenState();
 }
 
 class _GoalsScreenState extends State<GoalsScreen> {
-  final Color _backgroundColor = Colors.purple[300];
-  final String _fontFamily = "Raleway";
-
-  final _scaffoldGlobalKey = GlobalKey<ScaffoldState>(); 
   
-  final ListTaskStore _listTaskStore = ListTaskStore();
-
   int _day;
   int _weekDay;
 
-  //calculando o dia da semana para os dias antes e depois do dia atual
   int computeWeekDay(int day){
-    return day <0 ? 7+(day) : (day>7 ? day-7 : day );
+    print("Day: $day");
+    int result = day <0 ? 7+(day) : (day>7 ? day-7 : day); //o ultimo eh mais um pra corrigir um bug
+    print("rsult: $result");
+    return result;
   }
 
   @override
@@ -32,17 +27,26 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _day = DateTime.now().day;
     _weekDay =DateTime.now().weekday;
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        key: _scaffoldGlobalKey,
-        // backgroundColor: Color.fromRGBO(r, g, b, opacity),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.chevron_left,
+                color: Color(0xFFFFFFFF),
+                size: 40,
+              ), 
+              onPressed: (){
+                Navigator.of(context).pop();
+              }
+            ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 DayWidget(_day-2,  computeWeekDay(_weekDay-2)),
@@ -60,98 +64,66 @@ class _GoalsScreenState extends State<GoalsScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Text(
-                    "Metas",
+                    'Metas',
                     style: TextStyle(
-                      color: _backgroundColor,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 40,
-                      fontFamily: _fontFamily
+                      fontFamily: _defaultFontFamily,
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 40
                     ),
-                    textAlign: TextAlign.left,
-                  ),
+                  )
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right:15),
+                  padding: EdgeInsets.only(right:20),
                   child: Container(
-                    padding: const EdgeInsets.all(0),
-                    height: 45,
+                    padding: EdgeInsets.all(5),
+                    height: MediaQuery.of(context).size.height*0.08,
                     decoration: BoxDecoration(
-                      border: Border.all(color:_backgroundColor, width: 1),
-                      borderRadius: BorderRadius.horizontal(left:Radius.circular(100), right:Radius.circular(100)),
-                      // color: _backgroundColor
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(color: Color(0xFF0CCF4F))
                     ),
-                    // color: _backgroundColor,
                     child: FlatButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.add, color: _backgroundColor,),
-                          Text(
-                            'Add meta',
-                            style: TextStyle(
-                              color: _backgroundColor,
-                              fontFamily: _fontFamily
-                            ),
-                          )
-                        ],
+                      onPressed: (){},
+                      child: Text(
+                        '+ Adicionar',
+                        style: TextStyle(
+                          color: Color(0xFF0CCF4F)
+                        ),
                       ),
-                      onPressed: (){
-                        // _addGoal(context);
-                        Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_)=>AddGoalScreen(_listTaskStore))
-                      );
-                      }
                     ),
                   )
                 )
               ],
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Card(
-                  color: Colors.grey[350],
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)
-                  ),
-                  child: Observer(
-                    builder: (_){
-                      return Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: ListView.separated(
-                          itemBuilder: (context,index){
-                            return CustomListTile(
-                              _listTaskStore,
-                              index
-                            );
-                          }, 
-                          separatorBuilder: (context,index){
-                            return Divider();
-                          }, 
-                          itemCount: _listTaskStore.tasks.length
-                        )
-                      );
-                    }
-                  )
-                )
-              )
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Container(
+                height: MediaQuery.of(context).size.height*0.5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(color: Color(0xFF7A928F))
+                ),
+              ),
             ),
             Observer(
               builder: (_){
-                return LinearProgressIndicator(
-                  value: _listTaskStore.barValue,
-                  backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation<Color>(_backgroundColor),
+                return LinearPercentIndicator(
+                  percent: 0.7,
+                  backgroundColor: Theme.of(context).primaryColor,
+                  linearGradient: LinearGradient(
+                    colors: [
+                      Color(0xFF0CCF4F),
+                      Color(0xFF22BFC3),
+                    ]
+                  ),
                 );
               }
             )
           ],
+          
         ),
       )
     );
   }
-
 }
-

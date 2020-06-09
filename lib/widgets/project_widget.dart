@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sleek_circular_slider/sleek_circular_slider.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
@@ -25,28 +25,18 @@ class ProjectWidget extends StatelessWidget {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.symmetric(horizontal:10, vertical: 10),
-              child: SleekCircularSlider(
-                initialValue: value,
-                appearance: CircularSliderAppearance(
-                  angleRange: 360,
-                  size: 120,
-                  customWidths: CustomSliderWidths(progressBarWidth: 10),
-                  customColors: CustomSliderColors(
-                    hideShadow: true,
-                    trackColor: Theme.of(context).primaryColor,
-                    progressBarColors: [
-                      Color(0xFF0CCF4F),
-                      Color(0xFF22BFC3),
-                    ],
-                  ),
-                  infoProperties: InfoProperties(
-                    mainLabelStyle: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 30
-                    )
-                  )
+              child: CircularPercentIndicator(
+                radius: 100.0,
+                backgroundColor: Theme.of(context).primaryColor,
+                percent: value,
+                
+                linearGradient: LinearGradient(
+                  colors: [
+                    Color(0xFF0CCF4F),
+                    Color(0xFF22BFC3),
+                  ]
+                ),
               ),
-            ),
             ),
             Text(
               name,

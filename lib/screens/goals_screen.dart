@@ -1,4 +1,5 @@
 import 'package:dream_tasks/screens/add_goal_screen.dart';
+import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
 import 'package:dream_tasks/widgets/goal_tile_widget.dart';
@@ -17,10 +18,10 @@ class _GoalsScreenState extends State<GoalsScreen> {
   int _day;
   int _weekDay;
 
+  final ListTaskStore _listTaskStore = ListTaskStore();
+
   int computeWeekDay(int day){
-    print("Day: $day");
     int result = day <0 ? 7+(day) : (day>7 ? day-7 : day); //o ultimo eh mais um pra corrigir um bug
-    print("rsult: $result");
     return result;
   }
 
@@ -90,7 +91,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     child: FlatButton(
                       onPressed: (){
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context)=>AddGoalScreen())
+                          MaterialPageRoute(builder: (context)=>AddGoalScreen(_listTaskStore))
                         );
                       },
                       child: Text(
@@ -112,22 +113,25 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   border: Border.all(color: Color(0xFF7A928F))
                 ),
-                child: ListView(
-                  padding: EdgeInsets.all(20),
-                  children: <Widget>[
-                    GoalTileWidget("Lavar louça",),
-                    GoalTileWidget("Estudar flutter", checked: true,),
-                    GoalTileWidget("Estudar investimentos", checked: true,),
-                    GoalTileWidget("Estudar investimentos", checked: true,),
-                    GoalTileWidget("Cantar", checked: true,),
-                  ],
-                ),
+                child: Observer(
+                  builder: (_){
+                    return ListView.builder(
+                      padding: EdgeInsets.all(20),
+                      itemCount: _listTaskStore.tasks.length,
+                      itemBuilder: (context, index){
+                        print("entrou: "+ _listTaskStore.tasks[index].goalTitle);
+                        return GoalTileWidget(_listTaskStore, index);
+                      }
+                    );
+                  }
+                )
+                
               ),
             ),
             Observer(
               builder: (_){
                 return LinearPercentIndicator(
-                  percent: 0.7,
+                  percent: _listTaskStore.barValue,
                   lineHeight: 12.0,
                   linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
                   backgroundColor: Theme.of(context).primaryColor,

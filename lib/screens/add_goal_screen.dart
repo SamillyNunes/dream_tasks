@@ -1,3 +1,4 @@
+import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_check_widget.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/custom_input.dart';
@@ -7,13 +8,18 @@ import 'package:flutter/material.dart';
 const String _defaultFontFamily = 'Raleway';
 
 class AddGoalScreen extends StatelessWidget {
+
+  final ListTaskStore _listTaskStore;
+
+  AddGoalScreen(this._listTaskStore);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         endDrawer: CustomDrawer(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        body: ListView(
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
               width: MediaQuery.of(context).size.width,
@@ -53,22 +59,22 @@ class AddGoalScreen extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left:20),
-                    child: CustomInput("Nome:"),
+                    child: CustomInput("Nome:", _listTaskStore, nome: true),
                   ),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput("Descrição:")
+              child: CustomInput("Descrição:", _listTaskStore)
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput("Data:", icon: Icons.calendar_today,)
+              child: CustomInput("Data:", _listTaskStore,icon: Icons.calendar_today)
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput("Horário:", icon: Icons.access_time,)
+              child: CustomInput("Horário:",_listTaskStore, icon: Icons.access_time)
             ),
             Row(
               children: <Widget>[
@@ -112,7 +118,12 @@ class AddGoalScreen extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),
               child: FlatButton(
-                onPressed: (){}, 
+                onPressed: (){
+                  print(_listTaskStore.newTask);
+                  _listTaskStore.addTask();
+                  print(_listTaskStore.tasks);
+                  Navigator.of(context).pop();
+                }, 
                 child: Text(
                   'Adicionar',
                   style: TextStyle(

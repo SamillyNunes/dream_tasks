@@ -1,3 +1,4 @@
+import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:flutter/material.dart';
 
 const String _defaultFontFamily = 'Raleway';
@@ -5,15 +6,17 @@ const String _defaultFontFamily = 'Raleway';
 class CustomInput extends StatelessWidget {
   final String label;
   final IconData icon;
+  final bool nome;
+  final ListTaskStore listTaskStore;
 
-  CustomInput(this.label, {this.icon});
+  CustomInput(this.label, this.listTaskStore, {this.icon, this.nome=false});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width*0.9,
       child: TextFormField(
-        // onChanged:  _listTaskStore.setNewTask,
+        onChanged: nome ? listTaskStore.setNewTask : (string){},
         style: TextStyle(
           color: Colors.white,                    
         ),

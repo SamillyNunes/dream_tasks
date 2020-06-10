@@ -1,15 +1,17 @@
+import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/days_sequence_widget.dart';
 import 'package:dream_tasks/widgets/home_check_widget.dart';
 import 'package:dream_tasks/widgets/home_goal_widget.dart';
 import 'package:dream_tasks/widgets/project_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
 class HomeScreen extends StatelessWidget {
 
-
+  ListTaskStore _listTaskStore = ListTaskStore();
 
   @override
   Widget build(BuildContext context) {
@@ -83,19 +85,20 @@ class HomeScreen extends StatelessWidget {
                       border: Border.all(color: Color(0xFF7A928F)),
                       borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
-                    child: ListView(
-                      padding: EdgeInsets.all(15),
-                      children: <Widget>[
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: HomeCheckWidget('Estudar design', false),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.only(bottom: 10),
-                          child: HomeCheckWidget('Estudar flutter', true),
-                        ),
-                      ],
-                    ),
+                    child: Observer( //nao ta funfando pq o listview tem que ser um so para todas as paginas
+                      builder: (_){
+                        return ListView.builder(
+                          padding: EdgeInsets.all(15),
+                          itemCount: _listTaskStore.tasks.length,
+                          itemBuilder: (context,index){
+                            return Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: HomeCheckWidget(_listTaskStore.tasks[index].goalTitle, _listTaskStore.tasks[index].done)
+                            );
+                          }
+                        );
+                      },
+                    )
                   )
 
                 ],

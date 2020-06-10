@@ -1,180 +1,133 @@
-import 'package:dream_tasks/stores/list_task_store.dart';
-import 'package:dream_tasks/widgets/day_repeat_widget.dart';
+import 'package:dream_tasks/widgets/custom_check_widget.dart';
+import 'package:dream_tasks/widgets/custom_drawer.dart';
+import 'package:dream_tasks/widgets/custom_input.dart';
+import 'package:dream_tasks/widgets/custom_select_weekday.dart';
 import 'package:flutter/material.dart';
 
+const String _defaultFontFamily = 'Raleway';
+
 class AddGoalScreen extends StatelessWidget {
-
-  final ListTaskStore _listTaskStore;
-
-  AddGoalScreen(this._listTaskStore);
-
-  final TextStyle _titleStyle = TextStyle(
-    fontSize: 35,
-    color: Colors.white,
-    fontWeight: FontWeight.bold,
-    fontFamily: 'Raleway'
-  );
-
-  final Color _mainColor = Color.fromRGBO(161, 9, 62, 1);
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("images/fundo.png"),
-            fit: BoxFit.cover
-          )
-        ),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          body: ListView(
-            children: <Widget>[
-              
-              IconButton(
-                padding: EdgeInsets.all(8),
-                iconSize: 30,
-                alignment: Alignment.centerLeft,
-                icon: Icon(
-                  Icons.keyboard_backspace,
-                  color: Colors.white,
-                ), 
-                onPressed: (){
-                  Navigator.of(context).pop();
-                }
-              ),
-              Padding(
-                padding: EdgeInsets.only(left:10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      'Adicione',
-                      style: _titleStyle,
-                    ),
-                    Text(
-                      'Uma meta',
-                      style: _titleStyle,
-                    ),
-                  ],
+      child: Scaffold(
+        endDrawer: CustomDrawer(),
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height*0.35,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color(0xFF0CCF4F),
+                    Color(0xFF22BFC3),
+                  ]
                 ),
+                borderRadius: BorderRadius.vertical(bottom: Radius.circular(40))
               ),
-              Padding(
-                padding: EdgeInsets.only(left:10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width*0.5,
-                  child: TextFormField(
-                    onChanged:  _listTaskStore.setNewTask,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  IconButton(
+                    icon: Icon(
+                      Icons.chevron_left,
+                      color: Color(0xFFFFFFFF),
+                      size: 40,
+                    ), 
+                    onPressed: (){
+                      Navigator.of(context).pop();
+                    }
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 20, top: 10),
+                    child: Text(
+                      'Adicione uma meta',
+                      style: TextStyle(
+                        color: Color(0xFFFFFFFF),
+                        fontFamily: _defaultFontFamily,
+                        fontSize: 30
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left:20),
+                    child: CustomInput("Nome:"),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(left:20),
+              child: CustomInput("Descrição:")
+            ),
+            Padding(
+              padding: EdgeInsets.only(left:20),
+              child: CustomInput("Data:", icon: Icons.calendar_today,)
+            ),
+            Padding(
+              padding: EdgeInsets.only(left:20),
+              child: CustomInput("Horário:", icon: Icons.access_time,)
+            ),
+            Row(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    'Repetir meta?',
                     style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      
+                      color: Color(0xFFFFFFFF),
+                      fontFamily: _defaultFontFamily
                     ),
-                    decoration: InputDecoration(
-                      labelText: 'Nome:',
-                      labelStyle: TextStyle(color: Colors.white54),
-                      
-                      enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white54)),
-                    ),
-                    cursorColor: Colors.lightBlue,
-                  )
+                  ),
+                ),
+                CustomCheckWidget(true, color: Color(0xFFFFFFFF),),
+              ],
+            ),
+            Row(
+              // crossAxisAlignment: CrossAxisAlignment.center
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                CustomSelectWeekday('Seg'),
+                CustomSelectWeekday('Ter'),
+                CustomSelectWeekday('Qua'),
+                CustomSelectWeekday('Qui'),
+                CustomSelectWeekday('Sex'),
+                CustomSelectWeekday('Sab'),
+                CustomSelectWeekday('Dom'),
+              ],
+            ),
+            Padding(
+              padding: EdgeInsets.only(left:20, right: 20, top: 40),
+              child: Container(
+                width: MediaQuery.of(context).size.width*0.9,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Color(0xFF0CCF4F),
+                      Color(0xFF22BFC3),
+                    ]
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
+              child: FlatButton(
+                onPressed: (){}, 
+                child: Text(
+                  'Adicionar',
+                  style: TextStyle(
+                    color: Theme.of(context).primaryColor,
+                    fontFamily: _defaultFontFamily,
+                    fontSize: 20
+                  ),
                 )
               ),
-              Container(
-                padding: EdgeInsets.only(top: 20),
-                height: MediaQuery.of(context).size.height*0.65,
-                child: Card(
-                  margin: EdgeInsets.all(0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(30), topRight: Radius.circular(30))
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Column(
-                      children: <Widget>[
-                        TextFormField(
-                          decoration: InputDecoration(
-                            suffixIcon: Icon(Icons.date_range),
-                            labelText: 'Data:',
-                            // labelStyle: TextStyle(color: Colors.grey[200]),
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: _mainColor)),
-                            focusColor: _mainColor,
-                            labelStyle: TextStyle(
-                              color: _mainColor
-                            )
-                          ),
-                        ),
-                        TextFormField(
-                          decoration: InputDecoration(
-                            suffixIcon: Icon(Icons.access_time),
-                            labelText: 'Horário:',
-                            focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: _mainColor)),
-                            focusColor: _mainColor,
-                            labelStyle: TextStyle(
-                              color: _mainColor
-                            )
-                          ),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Text(
-                              "Repetir meta?",
-                              style: TextStyle(
-                                color: _mainColor
-                              ),
-                            ),
-                            Checkbox(
-                              value: true,
-                              tristate: true,
-                              onChanged: (value){},
-                              activeColor: _mainColor,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            DayRepeatWidget('Dom'),
-                            DayRepeatWidget('Seg'),
-                            DayRepeatWidget('Ter'),
-                            DayRepeatWidget('Qua'),
-                            DayRepeatWidget('Qui'),
-                            DayRepeatWidget('Sex'),
-                            DayRepeatWidget('Sab'),
-                            
-                          ],
-                        ),
-                        Container(
-                          width: MediaQuery.of(context).size.width*0.9,
-                          margin: EdgeInsets.only(top:50),
-                          child: RaisedButton(
-                            onPressed: (){
-                              _listTaskStore.addTask();
-                              Navigator.of(context).pop();
-                            },
-                            child: Text(
-                              "Adicionar",
-                              style: TextStyle(
-                                color: Colors.white
-                              ),
-                            ),
-                            color: _mainColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(16))
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ),
-              )
-              
-            ],
-          ),
-        )
+            )
+          )
+            
+            
+          ],
+        ),
       )
     );
   }

@@ -1,3 +1,4 @@
+import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
 import 'package:dream_tasks/widgets/goal_tile_widget.dart';
@@ -87,7 +88,11 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       border: Border.all(color: Color(0xFF0CCF4F))
                     ),
                     child: FlatButton(
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context)=>AddGoalScreen())
+                        );
+                      },
                       child: Text(
                         '+ Adicionar',
                         style: TextStyle(

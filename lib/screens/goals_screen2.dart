@@ -1,4 +1,4 @@
-import 'package:dream_tasks/screens/add_goal_screen.dart';
+import 'package:dream_tasks/screens/add_goal_screen2.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_list_tile.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';

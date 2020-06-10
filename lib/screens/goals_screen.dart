@@ -1,4 +1,6 @@
+import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
+import 'package:dream_tasks/widgets/goal_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
@@ -32,6 +34,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        endDrawer: CustomDrawer(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -104,12 +107,24 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   border: Border.all(color: Color(0xFF7A928F))
                 ),
+                child: ListView(
+                  padding: EdgeInsets.all(20),
+                  children: <Widget>[
+                    GoalTileWidget("Lavar louça",),
+                    GoalTileWidget("Estudar flutter", checked: true,),
+                    GoalTileWidget("Estudar investimentos", checked: true,),
+                    GoalTileWidget("Estudar investimentos", checked: true,),
+                    GoalTileWidget("Cantar", checked: true,),
+                  ],
+                ),
               ),
             ),
             Observer(
               builder: (_){
                 return LinearPercentIndicator(
                   percent: 0.7,
+                  lineHeight: 12.0,
+                  linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
                   backgroundColor: Theme.of(context).primaryColor,
                   linearGradient: LinearGradient(
                     colors: [

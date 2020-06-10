@@ -1,3 +1,5 @@
+import 'package:dream_tasks/screens/goals_screen.dart';
+import 'package:dream_tasks/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 class DrawerItemButton extends StatelessWidget {
@@ -20,9 +22,21 @@ class DrawerItemButton extends StatelessWidget {
     'images/icons/statitics-icon-selected.png',
   ];
 
+  final List<Widget> _pages = [
+    HomeScreen(),
+    GoalsScreen(),
+    GoalsScreen(),
+    GoalsScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: (){
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (context)=>_pages[index])
+        );
+      },
       child: Container(
         width: MediaQuery.of(context).size.width*0.15,
         height: MediaQuery.of(context).size.height*0.10,

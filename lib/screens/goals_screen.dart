@@ -6,6 +6,7 @@ import 'package:dream_tasks/widgets/goal_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
 
 const String _defaultFontFamily = 'Raleway';
 class GoalsScreen extends StatefulWidget {
@@ -18,7 +19,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   int _day;
   int _weekDay;
 
-  final ListTaskStore _listTaskStore = ListTaskStore();
+  ListTaskStore _listTaskStore;
 
   int computeWeekDay(int day){
     int result = day <0 ? 7+(day) : (day>7 ? day-7 : day); //o ultimo eh mais um pra corrigir um bug
@@ -26,10 +27,19 @@ class _GoalsScreenState extends State<GoalsScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    _listTaskStore = Provider.of<ListTaskStore>(context);
+
+  }
+
+  @override
   void initState() {
     super.initState();
     _day = DateTime.now().day;
     _weekDay =DateTime.now().weekday;
+    
   }
 
   @override

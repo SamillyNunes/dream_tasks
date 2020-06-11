@@ -27,13 +27,15 @@ dependencies:
   flutter_mobx: ^1.1.0 # prove o widget observer para o mobx que vai rebuildar automaticamente quand houverem mudancas
   flutter_slidable: ^0.5.4 #para habilitar que as tarefas possam ser puxadas para o lado e excluidas
   percent_indicator: ^2.1.4 #analisar a troca do  sleek por este
+  table_calendar: ^2.2.3
+  provider: ^4.0.5+1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   mobx_codegen: ^1.1.0 # vao gerar um codigo para separar as coisas
   build_runner: ^1.10.0  #gera arquivos usando o dart, fora do pub. os arquivos sao salvos diretamente no disco e incrementais (so atualiza oq ta faltando)
-  table_calendar: ^2.2.3
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

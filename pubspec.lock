@@ -305,6 +305,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.1.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.4"
   node_interop:
     dependency: transitive
     description:
@@ -361,6 +368,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.4.0"
+  provider:
+    dependency: "direct main"
+    description:
+      name: provider
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.5+1"
   pub_semver:
     dependency: transitive
     description:
@@ -451,7 +465,7 @@ packages:
     source: hosted
     version: "1.0.5"
   table_calendar:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: table_calendar
       url: "https://pub.dartlang.org"
@@ -522,3 +536,4 @@ packages:
     version: "2.2.1"
 sdks:
   dart: ">=2.7.0 <3.0.0"
+  flutter: ">=1.12.1"

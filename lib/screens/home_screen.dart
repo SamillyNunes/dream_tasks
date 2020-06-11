@@ -6,12 +6,11 @@ import 'package:dream_tasks/widgets/home_goal_widget.dart';
 import 'package:dream_tasks/widgets/project_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:provider/provider.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
 class HomeScreen extends StatelessWidget {
-
-  ListTaskStore _listTaskStore = ListTaskStore();
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +86,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     child: Observer( //nao ta funfando pq o listview tem que ser um so para todas as paginas
                       builder: (_){
+                        ListTaskStore _listTaskStore = Provider.of<ListTaskStore>(context);
                         return ListView.builder(
                           padding: EdgeInsets.all(15),
                           itemCount: _listTaskStore.tasks.length,

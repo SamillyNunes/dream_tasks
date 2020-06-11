@@ -129,7 +129,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       padding: EdgeInsets.all(20),
                       itemCount: _listTaskStore.tasks.length,
                       itemBuilder: (context, index){
-                        print("entrou: "+ _listTaskStore.tasks[index].goalTitle);
                         return GoalTileWidget(_listTaskStore, index);
                       }
                     );

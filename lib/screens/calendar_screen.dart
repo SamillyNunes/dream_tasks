@@ -1,23 +1,17 @@
-import 'package:dream_tasks/models/day_event.dart';
-import 'package:dream_tasks/stores/list_event_store.dart';
+import 'package:dream_tasks/widgets/custom_drawer.dart';
+import 'package:dream_tasks/widgets/custom_event_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-
+const String _defaultFontFamily = 'Raleway';
 class CalendarScreen extends StatefulWidget {
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
 }
 
 class _CalendarScreenState extends State<CalendarScreen> {
-
+  
   CalendarController _calendarController;
-  final String _fontFamily = "Raleway";
-
-  Color _backgroundColor = Colors.orange;
-
-  ListEventStore _listEvents = ListEventStore();
   DateTime _dateSelected;
 
   @override
@@ -31,53 +25,82 @@ class _CalendarScreenState extends State<CalendarScreen> {
     _calendarController.dispose();    
     super.dispose();
   }
-
+  
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Colors.grey[300],
+        endDrawer: CustomDrawer(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: 20, top: 20),
-              child: Text(
-                "Calendário",
-                style: TextStyle(
-                  color: _backgroundColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                  fontFamily: _fontFamily
-                ),
-                textAlign: TextAlign.left,
-              ),
+            IconButton(
+              icon: Icon(
+                Icons.chevron_left,
+                color: Color(0xFFFFFFFF),
+                size: 40,
+              ), 
+              onPressed: (){
+                Navigator.of(context).pop();
+              }
             ),
             Padding(
-              padding: EdgeInsets.only(top:10, left:10, right: 10),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              child: Text(
+                'Calendário',
+                style: TextStyle(
+                  fontFamily: _defaultFontFamily,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 40
+                ),
+              )
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
               child: Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(16))
+                ),
                 elevation: 16,
                 child: Padding(
                   padding: EdgeInsets.only(bottom: 0),
                   child: TableCalendar(
                     calendarController: _calendarController,
-                    onDayLongPressed: (date, list){
-                      print("Agora");
-                      _listEvents.addEvent("Exemplo de evento "+date.day.toString(), "Essa eh uma descricao bb", date);
-                    },
-                    onDaySelected: (date, listEvents){
-                      print("day selected");
-                      _listEvents.changeDaySelected(date);
-                    },
                     availableCalendarFormats: const { //para assegurar que so mostrara em forma de mes
                       CalendarFormat.month: 'month',
                     },
-                    calendarStyle: CalendarStyle(
-                      selectedColor: Colors.orange,
-                      todayColor: _backgroundColor,
+                    headerStyle: HeaderStyle(
+                      centerHeaderTitle: true,
+                      titleTextStyle: TextStyle(
+                        fontFamily: _defaultFontFamily,
+                      )
+                    ),
+                    daysOfWeekStyle: DaysOfWeekStyle(
+                      weekdayStyle: TextStyle(
+                        fontFamily: _defaultFontFamily,
+                      ),
                       weekendStyle: TextStyle(
-                        color: _backgroundColor,
-                        fontWeight: FontWeight.bold
+                        fontFamily: _defaultFontFamily,
+                        color: Color(0xFF0CCF4F)
+                      )
+                    ),
+                    calendarStyle: CalendarStyle(
+                      selectedColor:Color(0xFF0CCF4F),
+                      todayColor: Color(0xFF0CCF4F),
+                      weekdayStyle: TextStyle(
+                        fontFamily: _defaultFontFamily
+                      ),
+                      weekendStyle: TextStyle(
+                        fontFamily: _defaultFontFamily,
+                        color: Color(0xFF0CCF4F)
+                      ),
+                      unavailableStyle: TextStyle(
+                        fontFamily: _defaultFontFamily,
+                        color: Color(0xFF7A928F)
+                      ),
+                      outsideWeekendStyle: TextStyle(
+                        fontFamily: _defaultFontFamily,
+                        color: Color(0xFF7A928F)
                       ),
                     ),
                     rowHeight: 30,         
@@ -86,89 +109,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
               )
             ),
             Padding(
-              padding: EdgeInsets.only(left: 20, top: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Text(
-                "Eventos",
+                'Eventos',
                 style: TextStyle(
-                  color: _backgroundColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  fontFamily: _fontFamily
+                  fontFamily: _defaultFontFamily,
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 25
                 ),
-                textAlign: TextAlign.left,
-              ),
+              )
             ),
             Expanded(
-              child: Observer(
-                builder: (context){
-                  DateTime dayS = _listEvents.dateSelected;
-                  String chave = dayS.day.toString()+"0"+dayS.month.toString()+dayS.year.toString();
-                  return _listEvents.events.containsKey(chave) ?
-                    ListView.builder(
-                      itemCount: _listEvents.events[chave].length,
-                      itemBuilder: (context, index){
-                        DayEvent de = _listEvents.events[chave][index];
-                        return _eventCard(de.title, de.description);
-                      }
-                    ) : Container();
-                }
+                child: ListView(
+                  children: <Widget>[
+                    CustomEventWidget('Aniversário da bia', 'Na casa branca as 2 hrs', Color(0xFF0CCF4F)),
+                    CustomEventWidget('Reunião do trabalho', 'Comparecer de terno e chamar o Jão', Color(0xFF22BFC3)),
+                    CustomEventWidget('Aniversário da Sam', 'Na piscina bebeeee', Color(0xFF0CCF4F)),
+                  ],
+                )
               ),
-            )
-            // Expanded(
-            //   child: Observer(
-            //     builder: (context){
-            //       return ListView.builder(
-            //         itemCount: _listEvents.events.length,
-            //         itemBuilder: (context, index){
-            //           DayEvent de = _listEvents.events[index];
-            //           return _listEvents.dateSelected==de.date ?
-            //              _eventCard(_listEvents.events[index].title, _listEvents.events[index].description)
-            //              : null ;
-            //         }
-            //       );
-            //     }
-            //   )
-            // )
           ],
-        ),
-      )
-    );
-  }
-
-  Widget _eventCard(String titleEvent, String description){
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Card(
-        color: Colors.orange[100],
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16)
-        ),
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                titleEvent,
-                style: TextStyle(
-                  fontFamily: _fontFamily,
-                  color: _backgroundColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20
-                ),
-              ),
-              Text(
-                description,
-                style: TextStyle(
-                  // fontFamily: _fontFamily,
-                  // color: _backgroundColor,
-                  // fontWeight: FontWeight.bold,
-                  fontSize: 16
-                ),
-                overflow: TextOverflow.ellipsis,
-              ),
-            ],
-          ),
         ),
       )
     );

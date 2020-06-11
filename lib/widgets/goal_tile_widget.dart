@@ -27,7 +27,15 @@ class GoalTileWidget extends StatelessWidget {
               return ListTile(
                 onTap: (){
                   bool value = _listTaskStore.tasks[index].toggle();
-                  value ? _listTaskStore.addBarValue() : _listTaskStore.subBarValue();
+                  if(value){
+                    _listTaskStore.addBarValue();
+                    _listTaskStore.incrementDones();
+                    _listTaskStore.decrementPending();
+                  } else {
+                    _listTaskStore.subBarValue();
+                    _listTaskStore.decrementDones();
+                    _listTaskStore.incrementPending();
+                  }
                 },
                 leading: CustomCheckWidget(_listTaskStore.tasks[index].done),
                 title: Text(

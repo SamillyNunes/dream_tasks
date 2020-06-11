@@ -14,6 +14,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ListTaskStore _listTaskStore = Provider.of<ListTaskStore>(context);
+
     return SafeArea(
       child: Scaffold(
         endDrawer: CustomDrawer(),
@@ -73,8 +75,14 @@ class HomeScreen extends StatelessWidget {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
-                      HomeGoalWidget(15, true),
-                      HomeGoalWidget(10, false),
+                      HomeGoalWidget(
+                        _listTaskStore.dones, 
+                        true
+                      ),
+                      HomeGoalWidget(
+                        _listTaskStore.pending, 
+                        false
+                      ),
                     ],
                   ),
                   Container( //caixa das metas
@@ -86,7 +94,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                     child: Observer( //nao ta funfando pq o listview tem que ser um so para todas as paginas
                       builder: (_){
-                        ListTaskStore _listTaskStore = Provider.of<ListTaskStore>(context);
+                        ;
                         return ListView.builder(
                           padding: EdgeInsets.all(15),
                           itemCount: _listTaskStore.tasks.length,

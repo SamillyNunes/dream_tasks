@@ -1,3 +1,4 @@
+import 'package:dream_tasks/screens/calendar_screen.dart';
 import 'package:dream_tasks/screens/goals_screen.dart';
 import 'package:dream_tasks/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ class DrawerItemButton extends StatelessWidget {
 
   final List<Widget> _pages = [
     HomeScreen(),
-    GoalsScreen(),
+    CalendarScreen(),
     GoalsScreen(),
     GoalsScreen(),
   ];

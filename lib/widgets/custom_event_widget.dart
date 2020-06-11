@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+
+const String _defaultFontFamily = 'Raleway';
+
+class CustomEventWidget extends StatelessWidget {
+  final String _titleEvent;
+  final String _descriptionEvent;
+  final Color _color;
+
+  CustomEventWidget(this._titleEvent,this._descriptionEvent,this._color);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal:20, vertical: 5),
+      child: Container(
+        padding: EdgeInsets.only(left: 20, top: 10),
+        height: MediaQuery.of(context).size.height*0.12,
+        decoration: BoxDecoration(
+          color: _color,
+          borderRadius: BorderRadius.all(Radius.circular(16))
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Text(
+              _titleEvent,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontFamily: _defaultFontFamily,
+                fontSize: 25
+
+              ),
+            ),
+            Text(
+              _descriptionEvent,
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontFamily: _defaultFontFamily,
+                fontSize: 15
+              ),
+            ),
+          ],
+        ), 
+        )
+    );
+  }
+}

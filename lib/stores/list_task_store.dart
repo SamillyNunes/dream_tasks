@@ -52,13 +52,33 @@ abstract class _ListTaskStore with Store {
     newTask="";
     setBarValueTax(tasks.length); 
     restartBarValue(barValueTax);
+    incrementPending();
   }
 
   @action
   void removeTask(int index){
+    tasks[index].done ? decrementDones() : decrementPending(); //decrementando da contagem de tarefas do dia
     tasks.removeAt(index);
     setBarValueTax(tasks.length); 
     restartBarValue(barValueTax);
   }
+
+  @observable
+  int dones=0;
+
+  @observable
+  int pending=0;
+
+  @action
+  void incrementDones() => dones+=1;
+
+  @action
+  void decrementDones() => dones-=1;
+  
+  @action
+  void incrementPending() => pending+=1;
+
+  @action
+  void decrementPending() => pending-=1;
 
 }

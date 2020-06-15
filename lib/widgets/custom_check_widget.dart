@@ -1,3 +1,4 @@
+import 'package:dream_tasks/global/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class CustomCheckWidget extends StatelessWidget {
@@ -15,13 +16,8 @@ class CustomCheckWidget extends StatelessWidget {
           width: 22,
           height: 22,          
           decoration: BoxDecoration(
-            border: borderColor!=null ? Border.all(color: borderColor) : Border.all(color: Color(0xFF0CCF4F)),
-            gradient: checked ? LinearGradient(
-              colors: [
-                Color(0xFF0CCF4F),
-                Color(0xFF22BFC3),
-              ]
-            ) : null
+            border: borderColor!=null ? Border.all(color: borderColor) : Border.all(color: Theme.of(context).accentColor),
+            gradient: checked ? CustomTheme().defaultGradient() : null
           ),
         ),
         Image.asset(

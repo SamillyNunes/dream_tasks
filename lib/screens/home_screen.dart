@@ -48,7 +48,7 @@ class HomeScreen extends StatelessWidget {
                     ProjectWidget('Flutter', 0.5),
                     ProjectWidget('Fitness', 0.1),
                     ProjectWidget('Teste', 0.9),
-                    ProjectWidget('Fitness', 0.3),
+                    ProjectWidget('teste', 0.2, newProject: true,)
                   ],
                 )
               )
@@ -89,12 +89,11 @@ class HomeScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width*0.6,
                     height: MediaQuery.of(context).size.height*0.2,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xFF7A928F)),
+                      border: Border.all(color: Theme.of(context).disabledColor),
                       borderRadius: BorderRadius.all(Radius.circular(10))
                     ),
                     child: Observer( //nao ta funfando pq o listview tem que ser um so para todas as paginas
                       builder: (_){
-                        ;
                         return ListView.builder(
                           padding: EdgeInsets.all(15),
                           itemCount: _listTaskStore.tasks.length,
@@ -118,7 +117,7 @@ class HomeScreen extends StatelessWidget {
               child: Container(
                 height: MediaQuery.of(context).size.height*0.3,
                 decoration: BoxDecoration(
-                  color: Color(0xFF7A928F),
+                  color: Theme.of(context).disabledColor,
                   borderRadius: BorderRadius.all(Radius.circular(10))
                 ),
               ),

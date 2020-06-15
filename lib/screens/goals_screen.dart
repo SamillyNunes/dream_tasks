@@ -1,3 +1,4 @@
+import 'package:dream_tasks/global/app_themes.dart';
 import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
@@ -28,7 +29,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     _listTaskStore = Provider.of<ListTaskStore>(context);
 
@@ -53,7 +53,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
             IconButton(
               icon: Icon(
                 Icons.chevron_left,
-                color: Color(0xFFFFFFFF),
+                color: Theme.of(context).primaryColor,
                 size: 40,
               ), 
               onPressed: (){
@@ -96,7 +96,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     height: MediaQuery.of(context).size.height*0.08,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(10)),
-                      border: Border.all(color: Color(0xFF0CCF4F))
+                      border: Border.all(color: Theme.of(context).accentColor)
                     ),
                     child: FlatButton(
                       onPressed: (){
@@ -107,7 +107,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       child: Text(
                         '+ Adicionar',
                         style: TextStyle(
-                          color: Color(0xFF0CCF4F)
+                          color: Theme.of(context).accentColor
                         ),
                       ),
                     ),
@@ -121,7 +121,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 height: MediaQuery.of(context).size.height*0.5,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
-                  border: Border.all(color: Color(0xFF7A928F))
+                  border: Border.all(color: Theme.of(context).disabledColor)
                 ),
                 child: Observer(
                   builder: (_){
@@ -144,12 +144,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   lineHeight: 12.0,
                   linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
                   backgroundColor: Theme.of(context).primaryColor,
-                  linearGradient: LinearGradient(
-                    colors: [
-                      Color(0xFF0CCF4F),
-                      Color(0xFF22BFC3),
-                    ]
-                  ),
+                  linearGradient: CustomTheme().defaultGradient(),
                 );
               }
             )

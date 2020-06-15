@@ -35,7 +35,7 @@ class ProjectWidget extends StatelessWidget {
         padding: EdgeInsets.all(10),
         child: Icon(
           Icons.add_circle_outline,
-          size: 30,
+          size: 60,
           color: Theme.of(context).primaryColor,
         ),
       ),
@@ -56,7 +56,7 @@ class ProjectWidget extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal:10, vertical: 10),
         child: CircularPercentIndicator(
           radius: 100.0,
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Color(0xFFFFFFFF), //cor fixa em ambos os temas
           percent: value,
           center: Text(
             "${(value*100).floor()}%",
@@ -77,7 +77,7 @@ class ProjectWidget extends StatelessWidget {
       Text(
         name,
         style: TextStyle(
-          color: Theme.of(context).primaryColor,
+          color: Color(0xFFFFFFFF), //cor fixa em ambos os temas
           fontFamily: _defaultFontFamily,
           fontSize: 15
         ),

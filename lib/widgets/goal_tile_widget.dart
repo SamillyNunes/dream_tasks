@@ -19,7 +19,7 @@ class GoalTileWidget extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Color(0xFFFFFFFF),
+            color: Theme.of(context).primaryColor,
             borderRadius: BorderRadius.all(Radius.circular(10))
           ),
           child: Observer(
@@ -41,7 +41,9 @@ class GoalTileWidget extends StatelessWidget {
                 title: Text(
                   _listTaskStore.tasks[index].goalTitle,
                   style: TextStyle(
-                    color: _listTaskStore.tasks[index].done ? Color(0xFF7A928F) : Color(0xFF0CCF4F),
+                    color: _listTaskStore.tasks[index].done ? 
+                      Theme.of(context).disabledColor 
+                      : Theme.of(context).accentColor,
                   ),
                 ),
               );

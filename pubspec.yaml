@@ -55,6 +55,7 @@ flutter:
   assets:
     - images/
     - images/icons/
+    - images/icons/light-theme/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
@@ -70,13 +71,13 @@ flutter:
   fonts:
     - family: Dosis
       fonts:
-        - asset: lib/fonts/Dosis-VariableFont_wght.ttf
+        - asset: fonts/Dosis-VariableFont_wght.ttf
     - family: Raleway
       fonts:
-        - asset: lib/fonts/Raleway-Light.ttf
+        - asset: fonts/Raleway-Light.ttf
     - family: DancingScript
       fonts:
-        - asset: lib/fonts/dancing_script.ttf
+        - asset: fonts/dancing_script.ttf
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

@@ -17,11 +17,13 @@ class HomeGoalWidget extends StatelessWidget {
         height: MediaQuery.of(context).size.height*0.1,
         padding: EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: active ? Color(0xFF0CCF4F) : Color(0xFF7A928F),
+          color: active ? 
+            Theme.of(context).accentColor 
+            : Theme.of(context).disabledColor,
           borderRadius: BorderRadius.all(Radius.circular(15)),
           boxShadow: active ? [
             BoxShadow(
-              color: Color(0xFFFFFFFF),
+              color: Theme.of(context).primaryColor,
               offset: Offset.fromDirection(1, 6),
               blurRadius: 10
             )
@@ -33,7 +35,7 @@ class HomeGoalWidget extends StatelessWidget {
             Text(
               '$quantity',
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color:Color(0xFFFFFFFF), //cor fixa em ambos os temas
                 fontSize: 20,
                 fontWeight: FontWeight.bold
               ),
@@ -41,7 +43,7 @@ class HomeGoalWidget extends StatelessWidget {
             Text(
               active ? 'Concluídos' : 'Pendentes',
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: Color(0xFFFFFFFF), //cor fixa em ambos os temas
                 fontFamily: _defaultFontFamily,
                 fontSize: 8
               ),

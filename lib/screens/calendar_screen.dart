@@ -37,7 +37,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             IconButton(
               icon: Icon(
                 Icons.chevron_left,
-                color: Color(0xFFFFFFFF),
+                color: Theme.of(context).primaryColor,
                 size: 40,
               ), 
               onPressed: (){
@@ -81,26 +81,26 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       ),
                       weekendStyle: TextStyle(
                         fontFamily: _defaultFontFamily,
-                        color: Color(0xFF0CCF4F)
+                        color: Theme.of(context).accentColor
                       )
                     ),
                     calendarStyle: CalendarStyle(
-                      selectedColor:Color(0xFF0CCF4F),
-                      todayColor: Color(0xFF0CCF4F),
+                      selectedColor:Theme.of(context).accentColor,
+                      todayColor: Theme.of(context).accentColor,
                       weekdayStyle: TextStyle(
                         fontFamily: _defaultFontFamily
                       ),
                       weekendStyle: TextStyle(
                         fontFamily: _defaultFontFamily,
-                        color: Color(0xFF0CCF4F)
+                        color: Theme.of(context).accentColor
                       ),
                       unavailableStyle: TextStyle(
                         fontFamily: _defaultFontFamily,
-                        color: Color(0xFF7A928F)
+                        color:Theme.of(context).disabledColor
                       ),
                       outsideWeekendStyle: TextStyle(
                         fontFamily: _defaultFontFamily,
-                        color: Color(0xFF7A928F)
+                        color: Theme.of(context).disabledColor
                       ),
                     ),
                     rowHeight: 30,         
@@ -122,9 +122,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
             Expanded(
                 child: ListView(
                   children: <Widget>[
-                    CustomEventWidget('Aniversário da bia', 'Na casa branca as 2 hrs', Color(0xFF0CCF4F)),
-                    CustomEventWidget('Reunião do trabalho', 'Comparecer de terno e chamar o Jão', Color(0xFF22BFC3)),
-                    CustomEventWidget('Aniversário da Sam', 'Na piscina bebeeee', Color(0xFF0CCF4F)),
+                    CustomEventWidget('Aniversário da bia', 'Na casa branca as 2 hrs', Theme.of(context).accentColor),
+                    CustomEventWidget('Reunião do trabalho', 'Comparecer de terno e chamar o Jão', Theme.of(context).highlightColor),
+                    CustomEventWidget('Aniversário da Sam', 'Na piscina bebeeee', Theme.of(context).accentColor),
                   ],
                 )
               ),

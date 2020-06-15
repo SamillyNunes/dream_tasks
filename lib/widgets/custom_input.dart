@@ -18,25 +18,25 @@ class CustomInput extends StatelessWidget {
       child: TextFormField(
         onChanged: nome ? listTaskStore.setNewTask : (string){},
         style: TextStyle(
-          color: Colors.white,                    
+          color: Theme.of(context).primaryColor,                    
         ),
         decoration: InputDecoration(
           suffixIcon: IconButton(
             icon: Icon(
               icon,
-              color: Color(0xFFFFFFFF),
+              color: Theme.of(context).primaryColor,
             ), 
             onPressed: (){}
           ),
           labelText: label,
           labelStyle: TextStyle(
-            color: Color(0xFFFFFFFF),
+            color: Theme.of(context).primaryColor,
             fontFamily: _defaultFontFamily
           ),
           
-          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Colors.white54)),
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
         ),
-        cursorColor: Color(0xFFFFFFFF),
+        cursorColor: Theme.of(context).primaryColor,
       )
     );
   }

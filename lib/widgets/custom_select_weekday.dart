@@ -16,12 +16,12 @@ class CustomSelectWeekday extends StatelessWidget {
       child: Container(
         child: Column(
           children: <Widget>[
-            CustomCheckWidget(this.selected, borderColor: Color(0xFFFFFFFF),),
+            CustomCheckWidget(this.selected, borderColor: Theme.of(context).primaryColor,),
             Text(
               weekDay,
               style: TextStyle(
                 fontFamily: _defaultFontFamily,
-                color: Color(0xFFFFFFFF),
+                color: Theme.of(context).primaryColor,
                 fontSize: 10
               ),
             ),

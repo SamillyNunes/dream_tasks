@@ -1,3 +1,4 @@
+import 'package:dream_tasks/global/app_themes.dart';
 import 'package:flutter/material.dart';
 
 const String _defaultFontFamily = 'Raleway';
@@ -14,12 +15,7 @@ class DaysSequenceWidget extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height*0.2,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color(0xFF0CCF4F),
-            Color(0xFF22BFC3),
-          ]
-        ),
+        gradient: CustomTheme().defaultGradient(),
         borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Column(
@@ -44,7 +40,7 @@ class DaysSequenceWidget extends StatelessWidget {
               'Seu recorde é de $record dias',
               style: TextStyle(
                 fontFamily: _defaultFontFamily,
-                color: Color(0xFF050607),
+                color: Theme.of(context).primaryColorDark,
                 fontSize: 15
               ),
             ),

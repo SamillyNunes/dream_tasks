@@ -54,6 +54,36 @@ mixin _$ListTaskStore on _ListTaskStore, Store {
     });
   }
 
+  final _$donesAtom = Atom(name: '_ListTaskStore.dones');
+
+  @override
+  int get dones {
+    _$donesAtom.reportRead();
+    return super.dones;
+  }
+
+  @override
+  set dones(int value) {
+    _$donesAtom.reportWrite(value, super.dones, () {
+      super.dones = value;
+    });
+  }
+
+  final _$pendingAtom = Atom(name: '_ListTaskStore.pending');
+
+  @override
+  int get pending {
+    _$pendingAtom.reportRead();
+    return super.pending;
+  }
+
+  @override
+  set pending(int value) {
+    _$pendingAtom.reportWrite(value, super.pending, () {
+      super.pending = value;
+    });
+  }
+
   final _$_ListTaskStoreActionController =
       ActionController(name: '_ListTaskStore');
 
@@ -124,11 +154,57 @@ mixin _$ListTaskStore on _ListTaskStore, Store {
   }
 
   @override
+  void incrementDones() {
+    final _$actionInfo = _$_ListTaskStoreActionController.startAction(
+        name: '_ListTaskStore.incrementDones');
+    try {
+      return super.incrementDones();
+    } finally {
+      _$_ListTaskStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void decrementDones() {
+    final _$actionInfo = _$_ListTaskStoreActionController.startAction(
+        name: '_ListTaskStore.decrementDones');
+    try {
+      return super.decrementDones();
+    } finally {
+      _$_ListTaskStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void incrementPending() {
+    final _$actionInfo = _$_ListTaskStoreActionController.startAction(
+        name: '_ListTaskStore.incrementPending');
+    try {
+      return super.incrementPending();
+    } finally {
+      _$_ListTaskStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void decrementPending() {
+    final _$actionInfo = _$_ListTaskStoreActionController.startAction(
+        name: '_ListTaskStore.decrementPending');
+    try {
+      return super.decrementPending();
+    } finally {
+      _$_ListTaskStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 newTask: ${newTask},
 barValue: ${barValue},
-barValueTax: ${barValueTax}
+barValueTax: ${barValueTax},
+dones: ${dones},
+pending: ${pending}
     ''';
   }
 }

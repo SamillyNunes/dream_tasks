@@ -22,7 +22,9 @@ class DayWidget extends StatelessWidget {
             style: TextStyle(
               fontFamily: _defaultFontFamily,
               fontSize: 25,
-              color: currentDay ? Color(0xFF0CCF4F) : Color(0xFFFFFFFF)
+              color: currentDay ? 
+                Theme.of(context).accentColor
+                : Theme.of(context).primaryColor
             ),
           ),
           Text(
@@ -31,7 +33,9 @@ class DayWidget extends StatelessWidget {
             style: TextStyle(
               fontFamily: _defaultFontFamily,
               fontSize: 20,
-              color: currentDay ? Color(0xFF0CCF4F) : Color(0xFFFFFFFF)
+              color: currentDay ? 
+                Theme.of(context).accentColor 
+                : Theme.of(context).primaryColor
             ),
           )
         ],

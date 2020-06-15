@@ -1,3 +1,4 @@
+import 'package:dream_tasks/global/app_themes.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_check_widget.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
@@ -25,12 +26,7 @@ class AddGoalScreen extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height*0.35,
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xFF0CCF4F),
-                    Color(0xFF22BFC3),
-                  ]
-                ),
+                gradient: CustomTheme().defaultGradient(),
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(40))
               ),
               child: Column(
@@ -39,7 +35,7 @@ class AddGoalScreen extends StatelessWidget {
                   IconButton(
                     icon: Icon(
                       Icons.chevron_left,
-                      color: Color(0xFFFFFFFF),
+                      color: Theme.of(context).primaryColor,
                       size: 40,
                     ), 
                     onPressed: (){
@@ -51,7 +47,7 @@ class AddGoalScreen extends StatelessWidget {
                     child: Text(
                       'Adicione uma meta',
                       style: TextStyle(
-                        color: Color(0xFFFFFFFF),
+                        color: Theme.of(context).primaryColor,
                         fontFamily: _defaultFontFamily,
                         fontSize: 30
                       ),
@@ -83,12 +79,12 @@ class AddGoalScreen extends StatelessWidget {
                   child: Text(
                     'Repetir meta?',
                     style: TextStyle(
-                      color: Color(0xFFFFFFFF),
+                      color: Theme.of(context).primaryColor,
                       fontFamily: _defaultFontFamily
                     ),
                   ),
                 ),
-                CustomCheckWidget(true, color: Color(0xFFFFFFFF),),
+                CustomCheckWidget(true, color: Theme.of(context).primaryColor,),
               ],
             ),
             Row(
@@ -109,12 +105,7 @@ class AddGoalScreen extends StatelessWidget {
               child: Container(
                 width: MediaQuery.of(context).size.width*0.9,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xFF0CCF4F),
-                      Color(0xFF22BFC3),
-                    ]
-                  ),
+                  gradient: CustomTheme().defaultGradient(),
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),
               child: FlatButton(

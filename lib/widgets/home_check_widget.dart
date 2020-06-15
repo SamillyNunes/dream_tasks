@@ -24,7 +24,7 @@ class HomeCheckWidget extends StatelessWidget {
             padding: EdgeInsets.all(12),
             child: Icon(
               Icons.check,
-              color: Color(0xFF0CCF4F),
+              color: Theme.of(context).accentColor,
             )
           ) :
           IconButton(
@@ -41,7 +41,7 @@ class HomeCheckWidget extends StatelessWidget {
           this.title,
           style: TextStyle(
             color: checked ? 
-              Color(0xFF0CCF4F) : 
+              Theme.of(context).accentColor : 
               Theme.of(context).primaryColor ,
             fontSize: 15,
             fontFamily: _defaultFontFamily,

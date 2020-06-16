@@ -42,6 +42,17 @@ mixin _$ThemeStore on _ThemeStore, Store {
   final _$_ThemeStoreActionController = ActionController(name: '_ThemeStore');
 
   @override
+  void toggleDark() {
+    final _$actionInfo = _$_ThemeStoreActionController.startAction(
+        name: '_ThemeStore.toggleDark');
+    try {
+      return super.toggleDark();
+    } finally {
+      _$_ThemeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void changeTheme() {
     final _$actionInfo = _$_ThemeStoreActionController.startAction(
         name: '_ThemeStore.changeTheme');

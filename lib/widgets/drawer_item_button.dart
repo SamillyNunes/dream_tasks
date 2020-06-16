@@ -2,15 +2,18 @@ import 'package:dream_tasks/screens/calendar_screen.dart';
 import 'package:dream_tasks/screens/goals_screen.dart';
 import 'package:dream_tasks/screens/home_screen.dart';
 import 'package:dream_tasks/screens/settings_screen.dart';
+import 'package:dream_tasks/stores/drawer_store.dart';
 import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
 class DrawerItemButton extends StatelessWidget {
   final int index;
-  final bool selected;
+  final DrawerStore _drawerStore;
+  
+  DrawerItemButton(this.index, this._drawerStore);
 
-  DrawerItemButton(this.index, {this.selected=false});
 
   final List<String> _itemsIcons = [
     'images/icons/home-icon.png',
@@ -49,6 +52,7 @@ class DrawerItemButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
+        _drawerStore.setIndex(index);
         Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (context)=>_pages[index])
@@ -62,10 +66,15 @@ class DrawerItemButton extends StatelessWidget {
           color: Theme.of(context).primaryColorDark,
           borderRadius: BorderRadius.all(Radius.circular(10))
         ),
-        child: selected ? Image.asset(_itemsSelectedIcons[index]) //se tiver selecionado
+        child: Observer(
+          builder: (context){
+            return index==_drawerStore.selectedIndex ? 
+                    Image.asset(_itemsSelectedIcons[index]) //se tiver selecionado
                       : Provider.of<ThemeStore>(context).dark ? //se nao tiver sleecionado entao vai ver os temas
                         Image.asset(_itemsIcons[index]) //tema dark
-                        : Image.asset(_itemsLightIcons[index]),
+                        : Image.asset(_itemsLightIcons[index]);
+          },
+        ),
       )
     );
   }

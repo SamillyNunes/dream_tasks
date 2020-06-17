@@ -110,11 +110,22 @@ mixin _$ListTaskStore on _ListTaskStore, Store {
   }
 
   @override
-  void restartBarValue(double newValue) {
+  void restartBarValue(String key) {
     final _$actionInfo = _$_ListTaskStoreActionController.startAction(
         name: '_ListTaskStore.restartBarValue');
     try {
-      return super.restartBarValue(newValue);
+      return super.restartBarValue(key);
+    } finally {
+      _$_ListTaskStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setBarValueTax(int quantItems) {
+    final _$actionInfo = _$_ListTaskStoreActionController.startAction(
+        name: '_ListTaskStore.setBarValueTax');
+    try {
+      return super.setBarValueTax(quantItems);
     } finally {
       _$_ListTaskStoreActionController.endAction(_$actionInfo);
     }
@@ -132,11 +143,11 @@ mixin _$ListTaskStore on _ListTaskStore, Store {
   }
 
   @override
-  void addTask(DateTime date) {
+  void addTask(DateTime date, DateTime selectedDate) {
     final _$actionInfo = _$_ListTaskStoreActionController.startAction(
         name: '_ListTaskStore.addTask');
     try {
-      return super.addTask(date);
+      return super.addTask(date, selectedDate);
     } finally {
       _$_ListTaskStoreActionController.endAction(_$actionInfo);
     }

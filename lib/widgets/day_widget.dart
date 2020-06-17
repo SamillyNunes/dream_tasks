@@ -6,7 +6,6 @@ const String _defaultFontFamily = 'Raleway';
 
 class DayWidget extends StatelessWidget {
   final DateTime date;
-  // final int weekDay;
   final DayStore dayStore;
 
 

@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:dream_tasks/global/app_themes.dart';
 import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/stores/day_store.dart';
@@ -7,8 +8,11 @@ import 'package:dream_tasks/widgets/day_widget.dart';
 import 'package:dream_tasks/widgets/goal_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
+
+const List<String> format = [dd, '-',mm,'-',yyyy];
 
 const String _defaultFontFamily = 'Raleway';
 class GoalsScreen extends StatefulWidget {
@@ -19,6 +23,7 @@ class GoalsScreen extends StatefulWidget {
 class _GoalsScreenState extends State<GoalsScreen> {
   
   DateTime _date;
+  String dateKey;
 
   ListTaskStore _listTaskStore;
   DayStore _dayStore = DayStore();
@@ -27,6 +32,18 @@ class _GoalsScreenState extends State<GoalsScreen> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     _listTaskStore = Provider.of<ListTaskStore>(context);
+
+    reaction(
+      (_)=>_dayStore.dateSelected, 
+      (dateSelected){
+        dateKey = formatDate(dateSelected, format);
+         _listTaskStore.setBarValueTax(_listTaskStore.tasksMap[dateKey].length);
+        
+        _listTaskStore.restartBarValue(
+          dateKey
+        );
+      }
+    );
     
 
   }
@@ -35,6 +52,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   void initState() {
     super.initState();
     _date = DateTime.now(); 
+    dateKey = formatDate(_date, format);
     
   }
 
@@ -97,7 +115,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                     child: FlatButton(
                       onPressed: (){
                         Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context)=>AddGoalScreen(_listTaskStore))
+                          MaterialPageRoute(builder: (context)=>AddGoalScreen(_listTaskStore, _dayStore))
                         );
                       },
                       child: Text(

@@ -29,6 +29,7 @@ dependencies:
   percent_indicator: ^2.1.4 #analisar a troca do  sleek por este
   table_calendar: ^2.2.3
   provider: ^4.0.5+1
+  date_format: ^1.0.8
 
 
 dev_dependencies:

@@ -1,4 +1,5 @@
 import 'package:dream_tasks/global/app_themes.dart';
+import 'package:dream_tasks/stores/day_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_check_widget.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
@@ -11,11 +12,10 @@ const String _defaultFontFamily = 'Raleway';
 class AddGoalScreen extends StatelessWidget {
 
   final ListTaskStore _listTaskStore;
+  final DayStore _dayStore;
   DateTime _dateTime;
 
-  List<String> _testes = List<String>();
-
-  AddGoalScreen(this._listTaskStore);
+  AddGoalScreen(this._listTaskStore, this._dayStore);
 
   @override
   Widget build(BuildContext context) {
@@ -120,8 +120,8 @@ class AddGoalScreen extends StatelessWidget {
               ),
               child: FlatButton(
                 onPressed: (){
-                  print("data:"+_dateTime.toIso8601String());
-                  _listTaskStore.addTask(_dateTime);
+                  
+                  _listTaskStore.addTask(_dateTime, _dayStore.dateSelected);
                   
                   Navigator.of(context).pop();
                 }, 

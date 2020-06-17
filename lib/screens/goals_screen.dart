@@ -1,5 +1,6 @@
 import 'package:dream_tasks/global/app_themes.dart';
 import 'package:dream_tasks/screens/add_goal_screen.dart';
+import 'package:dream_tasks/stores/day_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
@@ -17,28 +18,23 @@ class GoalsScreen extends StatefulWidget {
 
 class _GoalsScreenState extends State<GoalsScreen> {
   
-  int _day;
-  int _weekDay;
+  DateTime _date;
 
   ListTaskStore _listTaskStore;
-
-  int computeWeekDay(int day){
-    int result = day <0 ? 7+(day) : (day>7 ? day-7 : day); //o ultimo eh mais um pra corrigir um bug
-    return result;
-  }
+  DayStore _dayStore = DayStore();
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     _listTaskStore = Provider.of<ListTaskStore>(context);
+    
 
   }
 
   @override
   void initState() {
     super.initState();
-    _day = DateTime.now().day;
-    _weekDay =DateTime.now().weekday;
+    _date = DateTime.now(); 
     
   }
 
@@ -64,15 +60,15 @@ class _GoalsScreenState extends State<GoalsScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                DayWidget(_day-2,  computeWeekDay(_weekDay-2)),
+                DayWidget(_date.subtract(Duration(days: 2)), _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(_day-1, computeWeekDay(_weekDay-1)),
+                DayWidget(_date.subtract(Duration(days: 1)), _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(_day, _weekDay, currentDay: true),
+                DayWidget(_date,  _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(_day+1, computeWeekDay(_weekDay+1)),
+                DayWidget(_date.add(Duration(days: 1)),  _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(_day+2, computeWeekDay(_weekDay+2)),
+                DayWidget(_date.add(Duration(days: 2)),  _dayStore)
               ],
             ),
             Row(
@@ -129,7 +125,21 @@ class _GoalsScreenState extends State<GoalsScreen> {
                       padding: EdgeInsets.all(20),
                       itemCount: _listTaskStore.tasks.length,
                       itemBuilder: (context, index){
-                        return GoalTileWidget(_listTaskStore, index);
+                        return Observer(
+                          builder: (_){
+                            if(
+                              _listTaskStore.tasks[index].date.day == _dayStore.dateSelected.day
+                                && _listTaskStore.tasks[index].date.month == _dayStore.dateSelected.month
+                                && _listTaskStore.tasks[index].date.year == _dayStore.dateSelected.year
+                              ){
+                              return GoalTileWidget(_listTaskStore, index);
+                            } else {
+                              return Container();
+                            }
+                          },
+                        );
+                        
+                        
                       }
                     );
                   }
@@ -137,7 +147,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                 
               ),
             ),
-            Observer(
+            Observer( //n funcionando pq tem q ser uma barra de acordo com o dia
               builder: (_){
                 return LinearPercentIndicator(
                   percent: _listTaskStore.barValue,
@@ -154,4 +164,5 @@ class _GoalsScreenState extends State<GoalsScreen> {
       )
     );
   }
+
 }

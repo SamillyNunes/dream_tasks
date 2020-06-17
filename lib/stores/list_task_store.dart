@@ -47,8 +47,8 @@ abstract class _ListTaskStore with Store {
   ObservableList<TaskStore> tasks = ObservableList<TaskStore>();
 
   @action
-  void addTask(){
-    tasks.insert(0, new TaskStore(newTask));
+  void addTask(DateTime date){
+    tasks.insert(0, new TaskStore(newTask, date));
     newTask="";
     setBarValueTax(tasks.length); 
     restartBarValue(barValueTax);

@@ -132,11 +132,11 @@ mixin _$ListTaskStore on _ListTaskStore, Store {
   }
 
   @override
-  void addTask() {
+  void addTask(DateTime date) {
     final _$actionInfo = _$_ListTaskStoreActionController.startAction(
         name: '_ListTaskStore.addTask');
     try {
-      return super.addTask();
+      return super.addTask(date);
     } finally {
       _$_ListTaskStoreActionController.endAction(_$actionInfo);
     }

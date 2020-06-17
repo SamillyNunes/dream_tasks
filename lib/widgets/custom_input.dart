@@ -8,8 +8,9 @@ class CustomInput extends StatelessWidget {
   final IconData icon;
   final bool nome;
   final ListTaskStore listTaskStore;
+  final Function(DateTime) onDateSelected;
 
-  CustomInput(this.label, this.listTaskStore, {this.icon, this.nome=false});
+  CustomInput(this.label, this.listTaskStore, {this.icon, this.nome=false, this.onDateSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +23,20 @@ class CustomInput extends StatelessWidget {
         ),
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            icon: Icon(
-              icon,
-              color: Theme.of(context).primaryColor,
+            icon: IconButton(
+              icon: Icon(
+                icon,
+                color: Theme.of(context).primaryColor,
+              ), 
+              onPressed: () async{
+                DateTime date = await showDatePicker(
+                  context: context, 
+                  initialDate: DateTime.now(), 
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2030)
+                );
+                onDateSelected(date);
+              }
             ), 
             onPressed: (){}
           ),

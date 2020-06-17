@@ -11,6 +11,9 @@ const String _defaultFontFamily = 'Raleway';
 class AddGoalScreen extends StatelessWidget {
 
   final ListTaskStore _listTaskStore;
+  DateTime _dateTime;
+
+  List<String> _testes = List<String>();
 
   AddGoalScreen(this._listTaskStore);
 
@@ -66,7 +69,14 @@ class AddGoalScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput("Data:", _listTaskStore,icon: Icons.calendar_today)
+              child: CustomInput(
+                "Data:", 
+                _listTaskStore,
+                icon: Icons.calendar_today,
+                onDateSelected: (date){
+                  _dateTime = date;
+                },
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
@@ -110,9 +120,9 @@ class AddGoalScreen extends StatelessWidget {
               ),
               child: FlatButton(
                 onPressed: (){
-                  print(_listTaskStore.newTask);
-                  _listTaskStore.addTask();
-                  print(_listTaskStore.tasks);
+                  print("data:"+_dateTime.toIso8601String());
+                  _listTaskStore.addTask(_dateTime);
+                  
                   Navigator.of(context).pop();
                 }, 
                 child: Text(

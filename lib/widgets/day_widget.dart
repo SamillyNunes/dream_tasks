@@ -27,7 +27,6 @@ class DayWidget extends StatelessWidget {
       child: Container(
         child: Observer(
           builder: (context){
-            print('weekday:'+date.weekday.toString());
             return Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[

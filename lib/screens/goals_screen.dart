@@ -53,6 +53,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     super.initState();
     _date = DateTime.now(); 
     dateKey = formatDate(_date, format);
+    _dayStore.changeDaySelected(_date); //ja para iniciar com o dia atual
     
   }
 
@@ -137,31 +138,28 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   border: Border.all(color: Theme.of(context).disabledColor)
                 ),
-                child: Observer(
-                  builder: (_){
-                    return ListView.builder(
-                      padding: EdgeInsets.all(20),
-                      itemCount: _listTaskStore.tasks.length,
-                      itemBuilder: (context, index){
-                        return Observer(
-                          builder: (_){
-                            if(
-                              _listTaskStore.tasks[index].date.day == _dayStore.dateSelected.day
-                                && _listTaskStore.tasks[index].date.month == _dayStore.dateSelected.month
-                                && _listTaskStore.tasks[index].date.year == _dayStore.dateSelected.year
-                              ){
-                              return GoalTileWidget(_listTaskStore, index);
-                            } else {
-                              return Container();
-                            }
-                          },
-                        );
-                        
-                        
-                      }
-                    );
-                  }
-                )
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Observer(
+                    builder: (context){
+                      dateKey = formatDate(_dayStore.dateSelected, format);
+                      return Observer(
+                        builder: (context){
+                          if(_listTaskStore.tasksMap.containsKey(dateKey)){
+                            return ListView.builder(
+                              itemCount: _listTaskStore.tasksMap[dateKey].length, //ver isso, o ide
+                              itemBuilder: (context,index){
+                                return GoalTileWidget(_listTaskStore, index, dateKey);
+                              }
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      );
+                    },
+                  )
+                ),
                 
               ),
             ),

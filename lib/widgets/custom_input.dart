@@ -17,7 +17,11 @@ class CustomInput extends StatelessWidget {
     return Container(
       width: MediaQuery.of(context).size.width*0.9,
       child: TextFormField(
-        onChanged: nome ? listTaskStore.setNewTask : (string){},
+        onChanged: (value){
+          if(nome){
+            listTaskStore.setNewTask(value);
+          }
+        },
         style: TextStyle(
           color: Theme.of(context).primaryColor,                    
         ),
@@ -28,7 +32,7 @@ class CustomInput extends StatelessWidget {
                 icon,
                 color: Theme.of(context).primaryColor,
               ), 
-              onPressed: () async{
+              onPressed: () async{ //observar q todos os inputs tao com a acao da data
                 DateTime date = await showDatePicker(
                   context: context, 
                   initialDate: DateTime.now(), 

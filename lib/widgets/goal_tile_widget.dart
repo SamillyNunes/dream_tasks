@@ -7,8 +7,9 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 class GoalTileWidget extends StatelessWidget {
   final ListTaskStore _listTaskStore;
   final int index;
+  final String dateKey;
 
-  GoalTileWidget(this._listTaskStore,this.index);
+  GoalTileWidget(this._listTaskStore,this.index, this.dateKey);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class GoalTileWidget extends StatelessWidget {
             builder: (_){
               return ListTile(
                 onTap: (){
-                  bool value = _listTaskStore.tasks[index].toggle();
+                  bool value = _listTaskStore.tasksMap[dateKey][index].toggle();
                   if(value){
                     _listTaskStore.addBarValue();
                     _listTaskStore.incrementDones();
@@ -37,11 +38,11 @@ class GoalTileWidget extends StatelessWidget {
                     _listTaskStore.incrementPending();
                   }
                 },
-                leading: CustomCheckWidget(_listTaskStore.tasks[index].done),
+                leading: CustomCheckWidget(_listTaskStore.tasksMap[dateKey][index].done),
                 title: Text(
-                  _listTaskStore.tasks[index].goalTitle,
+                  _listTaskStore.tasksMap[dateKey][index].goalTitle,
                   style: TextStyle(
-                    color: _listTaskStore.tasks[index].done ? 
+                    color: _listTaskStore.tasksMap[dateKey][index].done ? 
                       Theme.of(context).disabledColor 
                       : Theme.of(context).accentColor,
                   ),

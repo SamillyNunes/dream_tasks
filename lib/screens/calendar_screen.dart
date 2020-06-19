@@ -58,6 +58,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
             Padding(
               padding: EdgeInsets.all(20),
               child: Card(
+                color: Color(0xFFFFFFFF),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(16))
                 ),

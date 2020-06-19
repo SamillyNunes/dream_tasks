@@ -15,7 +15,7 @@ class CustomDrawer extends StatelessWidget {
       width: MediaQuery.of(context).size.width*0.2,
       child: Drawer(
         child: Container(
-          color: Theme.of(context).primaryColor,
+          color: Theme.of(context).cardColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[

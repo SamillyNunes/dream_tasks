@@ -20,7 +20,7 @@ class GoalTileWidget extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).cardColor,
             borderRadius: BorderRadius.all(Radius.circular(10))
           ),
           child: Observer(

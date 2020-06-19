@@ -14,11 +14,11 @@ class CustomEventWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal:20, vertical: 5),
       child: Container(
-        padding: EdgeInsets.only(left: 20, top: 10),
-        height: MediaQuery.of(context).size.height*0.12,
+        padding: EdgeInsets.only(left: 20, top: 5),
+        height: MediaQuery.of(context).size.height*0.08,
         decoration: BoxDecoration(
           color: _color,
-          borderRadius: BorderRadius.all(Radius.circular(16))
+          borderRadius: BorderRadius.all(Radius.circular(8))
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,18 +26,18 @@ class CustomEventWidget extends StatelessWidget {
             Text(
               _titleEvent,
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color: Color(0xFFFFFFFF), //fixo
                 fontFamily: _defaultFontFamily,
-                fontSize: 25
+                fontSize: 20
 
               ),
             ),
             Text(
               _descriptionEvent,
               style: TextStyle(
-                color: Theme.of(context).primaryColor,
+                color:  Color(0xFFFFFFFF), //fixo
                 fontFamily: _defaultFontFamily,
-                fontSize: 15
+                fontSize: 10
               ),
             ),
           ],

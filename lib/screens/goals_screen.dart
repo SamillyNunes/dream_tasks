@@ -1,5 +1,4 @@
 import 'package:date_format/date_format.dart';
-import 'package:dream_tasks/global/app_themes.dart';
 import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/stores/day_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
@@ -11,6 +10,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:mobx/mobx.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
+import 'package:dream_tasks/stores/theme_store.dart';
 
 const List<String> format = [dd, '-',mm,'-',yyyy];
 
@@ -54,6 +54,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
     _date = DateTime.now(); 
     dateKey = formatDate(_date, format);
     _dayStore.changeDaySelected(_date); //ja para iniciar com o dia atual
+
+    
     
   }
 
@@ -169,8 +171,8 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   percent: _listTaskStore.barValue,
                   lineHeight: 12.0,
                   linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
-                  backgroundColor: Theme.of(context).primaryColor,
-                  linearGradient: CustomTheme().defaultGradient(),
+                  backgroundColor: Theme.of(context).cardColor,
+                  linearGradient: Provider.of<ThemeStore>(context).defaultGradient,
                 );
               }
             )

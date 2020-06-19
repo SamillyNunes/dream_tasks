@@ -1,5 +1,6 @@
-import 'package:dream_tasks/global/app_themes.dart';
+import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
@@ -15,7 +16,7 @@ class DaysSequenceWidget extends StatelessWidget {
     return Container(
       height: MediaQuery.of(context).size.height*0.2,
       decoration: BoxDecoration(
-        gradient: CustomTheme().defaultGradient(),
+        gradient: Provider.of<ThemeStore>(context).defaultGradient,
         borderRadius: BorderRadius.all(Radius.circular(20))
       ),
       child: Column(

@@ -10,6 +10,7 @@ class CustomTheme{
       highlightColor: Color(0xFF22BFC3), //cor secundaria fundos e cor 2 do degrade
       disabledColor: Color(0xFF7A928F),
       primaryColorDark: Color(0xFF000000),
+      cardColor: Color(0xFFFFFFFF)
     );
   }
 
@@ -22,14 +23,24 @@ class CustomTheme{
       highlightColor: Color(0xFF22BFC3),
       disabledColor: Color(0xFF7A928F),
       primaryColorDark: Color(0xFFFFFFFF),
+      cardColor: Color.fromRGBO(220, 220, 220, 0.5)
     );
   }
 
-  LinearGradient defaultGradient(){
+  LinearGradient greenGradient(){
     return LinearGradient(
       colors: [
         Color(0xFF0CCF4F),
         Color(0xFF22BFC3),
+      ]
+    );
+  }
+
+  LinearGradient pinkGradient(){
+    return LinearGradient(
+      colors: [
+        Color(0xFF513873),
+        Color(0xFFD9328E)
       ]
     );
   }

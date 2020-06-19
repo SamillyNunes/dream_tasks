@@ -40,11 +40,15 @@ class CustomInput extends StatelessWidget {
           ),
           labelText: label,
           labelStyle: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: nome? Color(0xFFFFFFFF) : Theme.of(context).primaryColor, //input nome fixo na cor branca
             fontFamily: _defaultFontFamily
           ),
           
-          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: nome ? Color(0xFFFFFFFF) : Theme.of(context).primaryColor, //fixo se for o nome
+            )
+          ),
         ),
         cursorColor: Theme.of(context).primaryColor,
       )

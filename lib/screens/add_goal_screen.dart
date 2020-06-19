@@ -1,4 +1,3 @@
-import 'package:dream_tasks/global/app_themes.dart';
 import 'package:dream_tasks/stores/day_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_check_widget.dart';
@@ -6,6 +5,8 @@ import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/custom_input.dart';
 import 'package:dream_tasks/widgets/custom_select_weekday.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:dream_tasks/stores/theme_store.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
@@ -32,6 +33,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
     // TODO: implement initState
     super.initState();
     _dateTime = _dayStore.dateSelected;
+
   }
 
   @override
@@ -46,7 +48,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height*0.35,
               decoration: BoxDecoration(
-                gradient: CustomTheme().defaultGradient(),
+                gradient: Provider.of<ThemeStore>(context).defaultGradient,
                 borderRadius: BorderRadius.vertical(bottom: Radius.circular(40))
               ),
               child: Column(
@@ -55,7 +57,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   IconButton(
                     icon: Icon(
                       Icons.chevron_left,
-                      color: Theme.of(context).primaryColor,
+                      color: Color(0xFFFFFFFF), //fixo
                       size: 40,
                     ), 
                     onPressed: (){
@@ -67,7 +69,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                     child: Text(
                       'Adicione uma meta',
                       style: TextStyle(
-                        color: Theme.of(context).primaryColor,
+                        color: Color(0xFFFFFFFF), //fixo
                         fontFamily: _defaultFontFamily,
                         fontSize: 30
                       ),
@@ -126,7 +128,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               child: Container(
                 width: MediaQuery.of(context).size.width*0.9,
                 decoration: BoxDecoration(
-                  gradient: CustomTheme().defaultGradient(),
+                  gradient: Provider.of<ThemeStore>(context).defaultGradient,
                   borderRadius: BorderRadius.all(Radius.circular(10))
               ),
               child: FlatButton(
@@ -139,7 +141,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                 child: Text(
                   'Adicionar',
                   style: TextStyle(
-                    color: Theme.of(context).primaryColor,
+                    color: Color(0xFFFFFFFF), //fixo
                     fontFamily: _defaultFontFamily,
                     fontSize: 20
                   ),

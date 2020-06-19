@@ -30,7 +30,7 @@ class HomeCheckWidget extends StatelessWidget {
           IconButton(
             icon: Icon(
               Icons.check_box_outline_blank,
-              color: Theme.of(context).primaryColor,
+              color: Color(0xFFFFFFFF), //fixo
             ), 
             onPressed: (){}
           ),
@@ -42,7 +42,7 @@ class HomeCheckWidget extends StatelessWidget {
           style: TextStyle(
             color: checked ? 
               Theme.of(context).accentColor : 
-              Theme.of(context).primaryColor ,
+              Color(0xFFFFFFFF) ,
             fontSize: 15,
             fontFamily: _defaultFontFamily,
             fontWeight: FontWeight.bold

@@ -1,5 +1,6 @@
-import 'package:dream_tasks/global/app_themes.dart';
+import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomCheckWidget extends StatelessWidget {
   final bool checked;
@@ -17,7 +18,7 @@ class CustomCheckWidget extends StatelessWidget {
           height: 22,          
           decoration: BoxDecoration(
             border: borderColor!=null ? Border.all(color: borderColor) : Border.all(color: Theme.of(context).accentColor),
-            gradient: checked ? CustomTheme().defaultGradient() : null
+            gradient: checked ? Provider.of<ThemeStore>(context).defaultGradient : null
           ),
         ),
         Image.asset(

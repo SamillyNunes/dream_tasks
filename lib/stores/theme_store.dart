@@ -18,8 +18,22 @@ abstract class _ThemeStore with Store {
 
   @action
   void changeTheme(){
-    print("dark: "+dark.toString());
     themeData= dark ? CustomTheme().lightTheme() : CustomTheme().darkTheme();
     toggleDark();
+  }
+
+  @observable 
+  bool greenGradient = true; 
+
+  @action
+  void toggleGreenGradient() => greenGradient = greenGradient ? false : true;
+
+  @observable
+  LinearGradient defaultGradient = CustomTheme().greenGradient();
+
+  @action
+  void changeGradient(){
+    defaultGradient= greenGradient ?CustomTheme().pinkGradient() : CustomTheme().greenGradient();
+    toggleGreenGradient();
   }
 }

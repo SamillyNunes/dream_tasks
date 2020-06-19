@@ -64,7 +64,13 @@ class DrawerItemButton extends StatelessWidget {
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Theme.of(context).primaryColorDark,
-          borderRadius: BorderRadius.all(Radius.circular(10))
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Color(0xFF000000),
+              offset: Offset(2, 2)
+            )
+          ],
         ),
         child: Observer(
           builder: (context){

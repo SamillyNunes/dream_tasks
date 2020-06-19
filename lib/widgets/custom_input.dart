@@ -32,14 +32,8 @@ class CustomInput extends StatelessWidget {
                 icon,
                 color: Theme.of(context).primaryColor,
               ), 
-              onPressed: () async{ //observar q todos os inputs tao com a acao da data
-                DateTime date = await showDatePicker(
-                  context: context, 
-                  initialDate: DateTime.now(), 
-                  firstDate: DateTime(2020),
-                  lastDate: DateTime(2030)
-                );
-                onDateSelected(date);
+              onPressed: (){ //observar q todos os inputs tao com a acao da data
+                
               }
             ), 
             onPressed: (){}

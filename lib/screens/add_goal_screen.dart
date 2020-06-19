@@ -9,13 +9,30 @@ import 'package:flutter/material.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
-class AddGoalScreen extends StatelessWidget {
+class AddGoalScreen extends StatefulWidget {
+  final ListTaskStore _listTaskStore;
+  final DayStore _dayStore;
 
+  AddGoalScreen(this._listTaskStore, this._dayStore);
+
+  @override
+  _AddGoalScreenState createState() => _AddGoalScreenState(this._listTaskStore, this._dayStore);
+}
+
+class _AddGoalScreenState extends State<AddGoalScreen> {
+  
   final ListTaskStore _listTaskStore;
   final DayStore _dayStore;
   DateTime _dateTime;
 
-  AddGoalScreen(this._listTaskStore, this._dayStore);
+  _AddGoalScreenState(this._listTaskStore, this._dayStore);
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _dateTime = _dayStore.dateSelected;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,14 +86,8 @@ class AddGoalScreen extends StatelessWidget {
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput(
-                "Data:", 
-                _listTaskStore,
-                icon: Icons.calendar_today,
-                onDateSelected: (date){
-                  _dateTime = date;
-                },
-              ),
+              child: _dateInput(context), 
+              
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
@@ -141,6 +152,53 @@ class AddGoalScreen extends StatelessWidget {
           ],
         ),
       )
+    );
+  }
+
+  Widget _dateInput(BuildContext context){
+    return InkWell(
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: 'Data:',
+          labelStyle: TextStyle(
+            color: Theme.of(context).primaryColor,
+            fontFamily: _defaultFontFamily //ver isso aqui q n ta de acordo com a fonte padrao
+          ),
+          
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: Theme.of(context).primaryColor)),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              '${_dateTime.day} de ${_dateTime.month} de ${_dateTime.year}',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 20
+              ),
+              
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.date_range,
+                color: Theme.of(context).primaryColor,
+              ), 
+              onPressed: () async{
+                DateTime date = await showDatePicker(
+                  context: context, 
+                  initialDate: DateTime.now(), 
+                  firstDate: DateTime(2020),
+                  lastDate: DateTime(2030)
+                );
+                setState(() {
+                  _dateTime = date;  
+                });
+                
+              }
+            )
+          ],
+        ),
+      ),
     );
   }
 }

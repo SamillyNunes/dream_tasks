@@ -7,9 +7,10 @@ class TaskStore = _TaskStore with _$TaskStore;
 
 abstract class _TaskStore with Store{
 
-  _TaskStore(this.goalTitle);
+  _TaskStore(this.goalTitle, this.date);
 
   final String goalTitle;
+  final DateTime date;
 
   @observable
   bool done = false;  

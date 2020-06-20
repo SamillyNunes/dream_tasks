@@ -1,3 +1,4 @@
+import 'package:date_format/date_format.dart';
 import 'package:dream_tasks/stores/task_store.dart';
 import 'package:mobx/mobx.dart';
 
@@ -11,7 +12,7 @@ abstract class _ListTaskStore with Store {
   String newTask ="";
 
   @observable 
-  double barValue = 0.0;
+  double barValue = 0.0; //sera correspondente a barra do dia atual
 
   @action
   void addBarValue(){   
@@ -24,19 +25,20 @@ abstract class _ListTaskStore with Store {
   }
 
   @action
-  void restartBarValue(double newValue){
+  void restartBarValue(String key){
     int dones=0;
-    for(TaskStore ts in tasks){
+    for(TaskStore ts in tasksMap[key]){
       if(ts.done){
         dones+=1;
       }
     }
-    barValue = dones>0 ? dones*newValue : 0;
+    barValue = dones>0 ? dones*barValueTax : 0;
   }
 
   @observable
   double barValueTax = 0.1;
 
+  @action
   void setBarValueTax(int quantItems){
     barValueTax = 1/quantItems;
   }
@@ -44,21 +46,69 @@ abstract class _ListTaskStore with Store {
   @action
   void setNewTask(String value) => newTask=value;
 
+  ObservableMap<String, ObservableList<TaskStore>> tasksMap = ObservableMap<String, ObservableList<TaskStore>>();
+
   ObservableList<TaskStore> tasks = ObservableList<TaskStore>();
 
   @action
-  void addTask(){
-    tasks.insert(0, new TaskStore(newTask));
+  void addTask(DateTime date, DateTime selectedDate){
+    final dateSelected = formatDate(selectedDate, [
+      dd, '-',mm,'-',yyyy
+    ]);
+    
+    final dateF = formatDate(date, [
+      dd, '-',mm,'-',yyyy
+    ]);
+
+    if(tasksMap.containsKey(dateF)){
+      tasksMap[dateF].insert(0, new TaskStore(newTask, date));
+    } else {
+      tasksMap.addAll(
+        {
+          dateF:ObservableList<TaskStore>()
+        }
+      );
+      tasksMap[dateF].insert(0, new TaskStore(newTask, date));
+
+    }
+
+    if(dateSelected==dateF){
+      setBarValueTax(tasksMap[dateF].length); 
+      restartBarValue(dateF);
+      incrementPending();
+    }
+    
+
+    
+    tasks.insert(0, new TaskStore(newTask, date));
     newTask="";
-    setBarValueTax(tasks.length); 
-    restartBarValue(barValueTax);
+    
   }
 
   @action
   void removeTask(int index){
+    tasks[index].done ? decrementDones() : decrementPending(); //decrementando da contagem de tarefas do dia
     tasks.removeAt(index);
     setBarValueTax(tasks.length); 
-    restartBarValue(barValueTax);
+    // restartBarValue(barValueTax);
   }
+
+  @observable
+  int dones=0;
+
+  @observable
+  int pending=0;
+
+  @action
+  void incrementDones() => dones+=1;
+
+  @action
+  void decrementDones() => dones-=1;
+  
+  @action
+  void incrementPending() => pending+=1;
+
+  @action
+  void decrementPending() => pending-=1;
 
 }

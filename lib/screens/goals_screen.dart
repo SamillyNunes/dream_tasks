@@ -1,195 +1,186 @@
+import 'package:date_format/date_format.dart';
 import 'package:dream_tasks/screens/add_goal_screen.dart';
+import 'package:dream_tasks/stores/day_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
-import 'package:dream_tasks/stores/task_store.dart';
-import 'package:dream_tasks/widgets/custom_list_tile.dart';
+import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
+import 'package:dream_tasks/widgets/goal_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:mobx/mobx.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
+import 'package:dream_tasks/stores/theme_store.dart';
 
-class GoalsScreen extends StatelessWidget {
+const List<String> format = [dd, '-',mm,'-',yyyy];
 
-  Color _backgroundColor = Colors.purple[300];
+const String _defaultFontFamily = 'Raleway';
+class GoalsScreen extends StatefulWidget {
+  @override
+  _GoalsScreenState createState() => _GoalsScreenState();
+}
 
-  final _scaffoldGlobalKey = GlobalKey<ScaffoldState>(); 
-  // final _inputController = GlobalKey<Te
+class _GoalsScreenState extends State<GoalsScreen> {
+  
+  DateTime _date;
+  String dateKey;
 
-  ListTaskStore _listTaskStore = ListTaskStore();
+  ListTaskStore _listTaskStore;
+  DayStore _dayStore = DayStore();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _listTaskStore = Provider.of<ListTaskStore>(context);
+
+    reaction(
+      (_)=>_dayStore.dateSelected, 
+      (dateSelected){
+        dateKey = formatDate(dateSelected, format);
+         _listTaskStore.setBarValueTax(_listTaskStore.tasksMap[dateKey].length);
+        
+        _listTaskStore.restartBarValue(
+          dateKey
+        );
+      }
+    );
+    
+
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _date = DateTime.now(); 
+    dateKey = formatDate(_date, format);
+    _dayStore.changeDaySelected(_date); //ja para iniciar com o dia atual
+
+    
+    
+  }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        key: _scaffoldGlobalKey,
-        // appBar: AppBar(
-        //   title: Text("Metas diárias"),
-        // ),
+        endDrawer: CustomDrawer(),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.chevron_left,
+                color: Theme.of(context).primaryColor,
+                size: 40,
+              ), 
+              onPressed: (){
+                Navigator.of(context).pop();
+              }
+            ),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                DayWidget(),
+                DayWidget(_date.subtract(Duration(days: 2)), _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(),
+                DayWidget(_date.subtract(Duration(days: 1)), _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(currentDay: true,),
+                DayWidget(_date,  _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(),
+                DayWidget(_date.add(Duration(days: 1)),  _dayStore),
                 SizedBox(width: 10,),
-                DayWidget(),
+                DayWidget(_date.add(Duration(days: 2)),  _dayStore)
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(left: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Text(
-                    "Metas",
+                    'Metas',
                     style: TextStyle(
-                      color: _backgroundColor,
-                      fontWeight: FontWeight.bold,
+                      fontFamily: _defaultFontFamily,
+                      color: Theme.of(context).primaryColor,
                       fontSize: 40
                     ),
-                    textAlign: TextAlign.left,
-                  ),
+                  )
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(right:15),
+                  padding: EdgeInsets.only(right:20),
                   child: Container(
-                    padding: const EdgeInsets.all(0),
-                    height: 45,
+                    padding: EdgeInsets.all(5),
+                    height: MediaQuery.of(context).size.height*0.08,
                     decoration: BoxDecoration(
-                      border: Border.all(color:_backgroundColor, width: 1),
-                      borderRadius: BorderRadius.horizontal(left:Radius.circular(100), right:Radius.circular(100)),
-                      color: _backgroundColor
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                      border: Border.all(color: Theme.of(context).accentColor)
                     ),
-                    // color: _backgroundColor,
                     child: FlatButton(
-                      child: Icon(Icons.add, color: Colors.white,),
                       onPressed: (){
-                        // _addGoal(context);
                         Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_)=>AddGoalScreen(_listTaskStore))
-                      );
-                      }
+                          MaterialPageRoute(builder: (context)=>AddGoalScreen(_listTaskStore, _dayStore))
+                        );
+                      },
+                      child: Text(
+                        '+ Adicionar',
+                        style: TextStyle(
+                          color: Theme.of(context).accentColor
+                        ),
+                      ),
                     ),
                   )
                 )
               ],
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(10),
-                child: Card(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16)
-                  ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              child: Container(
+                height: MediaQuery.of(context).size.height*0.5,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(color: Theme.of(context).disabledColor)
+                ),
+                child: Padding(
+                  padding: EdgeInsets.all(20),
                   child: Observer(
-                    builder: (_){
-                      return Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: ListView.separated(
-                          itemBuilder: (context,index){
-                            return CustomListTile(
-                              _listTaskStore,
-                              index
+                    builder: (context){
+                      dateKey = formatDate(_dayStore.dateSelected, format);
+                      return Observer(
+                        builder: (context){
+                          if(_listTaskStore.tasksMap.containsKey(dateKey)){
+                            return ListView.builder(
+                              itemCount: _listTaskStore.tasksMap[dateKey].length, //ver isso, o ide
+                              itemBuilder: (context,index){
+                                return GoalTileWidget(_listTaskStore, index, dateKey);
+                              }
                             );
-                          }, 
-                          separatorBuilder: (context,index){
-                            return Divider();
-                          }, 
-                          itemCount: _listTaskStore.tasks.length
-                        )
+                          } else {
+                            return Container();
+                          }
+                        },
                       );
-                    }
+                    },
                   )
-                )
-              )
+                ),
+                
+              ),
             ),
-            Observer(
+            Observer( //n funcionando pq tem q ser uma barra de acordo com o dia
               builder: (_){
-                return LinearProgressIndicator(
-                  value: _listTaskStore.barValue,
-                  backgroundColor: Colors.white,
-                  valueColor: AlwaysStoppedAnimation<Color>(_backgroundColor),
+                return LinearPercentIndicator(
+                  percent: _listTaskStore.barValue,
+                  lineHeight: 12.0,
+                  linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
+                  backgroundColor: Theme.of(context).cardColor,
+                  linearGradient: Provider.of<ThemeStore>(context).defaultGradient,
                 );
               }
             )
           ],
+          
         ),
       )
     );
   }
 
-  void _addGoal(context){
-    showModalBottomSheet(
-      context: context, 
-      shape:  RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(topLeft: Radius.circular(50.0), topRight: Radius.circular(50.0)),
-      ),
-      builder: (builder){
-        return Container(
-          height: MediaQuery.of(context).size.height*0.4,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top:10),
-                child: Center(
-                  child: Text(
-                    "Adicionar meta",
-                    style: TextStyle(
-                      color: _backgroundColor,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      
-                    ),
-                  ),
-                )
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 10,top: 10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width*0.9,
-                  child: TextFormField(
-                    onChanged: _listTaskStore.setNewTask,
-                    cursorColor: _backgroundColor,                
-                    decoration: InputDecoration(
-                      hoverColor: _backgroundColor,
-                      focusColor: _backgroundColor,
-                      hintText: "Nome da meta:",                  
-                      prefixIcon: Icon(Icons.track_changes)
-                    ),
-                  )
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top:90, left:10, right:10),
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: RaisedButton(
-                    // onPressed: _listTaskStore.addTask,
-                    onPressed: (){
-                    },
-                    color: _backgroundColor,
-                    child: Text(
-                      "Adicionar",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
-                    ),
-                  )
-                ),
-              )
-            ],
-          ),
-        );
-      }
-    );
-     
-  }
 }
-

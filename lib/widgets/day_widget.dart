@@ -1,67 +1,59 @@
+import 'package:dream_tasks/stores/day_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
-Color _backgroundColor = Colors.purple[300];
-const Color _secundaryBackground = Colors.black;
-const Color _textColor = Colors.black;
-// Color _secundaryTextColor = Colors.grey[350];
-const  Color _dayBackground = Colors.white;
+const String _defaultFontFamily = 'Raleway';
 
 class DayWidget extends StatelessWidget {
+  final DateTime date;
+  final DayStore dayStore;
 
-  final bool currentDay;
 
-  DayWidget({this.currentDay=false});
+  final List<String> week = ["Seg","Ter","Qua","Qui","Sex","Sab","Dom"];
+
+  DayWidget(this.date, this.dayStore);
+
+  
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(0),
-      // color: Colors.white,
-      height: MediaQuery.of(context).size.height * 0.16,
-      width: MediaQuery.of(context).size.width * 0.14,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.elliptical(100, 90)),
-          border: Border.all(
-            color: currentDay ? _backgroundColor : _secundaryBackground, 
-            width: 2
-          ),
-          color: currentDay ? _backgroundColor : _secundaryBackground, 
-      ),
-      child: FlatButton(
-        onPressed: () {},
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(bottom: 5),
-              child: Text(
-                "Seg",
-                style: TextStyle(
-                  fontSize: 8,
-                  color: currentDay ? _textColor : _backgroundColor, 
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.all(0),
-              // margin: EdgeInsets.all(2),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(100)),
-                  border: Border.all(
-                    color: currentDay ? _dayBackground : _secundaryBackground, 
-                    width: 2
+    return GestureDetector(
+      onTap: (){
+        if(dayStore.dateSelected!=date ){
+          dayStore.changeDaySelected(date);
+        } 
+
+      },
+      child: Container(
+        child: Observer(
+          builder: (context){
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "${date.day}",
+                  style: TextStyle(
+                    fontFamily: _defaultFontFamily,
+                    fontSize: 25,
+                    color: dayStore.dateSelected==date ? 
+                      Theme.of(context).accentColor
+                      : Theme.of(context).primaryColor,
+                    
                   ),
-                  color: currentDay ? _dayBackground : _secundaryBackground, 
-              ),
-              child: Text(
-                "23",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: currentDay ? _textColor : _backgroundColor, 
                 ),
-              ),
-            )
-          ],
+                Text(
+                  week[date.weekday-1],
+                  style: TextStyle(
+                    fontFamily: _defaultFontFamily,
+                    fontSize: 20,
+                    color: dayStore.dateSelected==date ? 
+                      Theme.of(context).accentColor 
+                      : Theme.of(context).primaryColor
+                  ),
+                )
+              ],
+            );
+          },
         ),
       )
     );

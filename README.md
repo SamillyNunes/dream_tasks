@@ -44,7 +44,7 @@ flutter run
 <img src="/images/screens-github/calendar-screen.jpg" height=450>
 
 - Settings screen and option to change the theme:
-<img src="/images/screens-github/settings-screen.jpg" height=450>
+<img src="/images/screens-github/settings-screen-light.jpg" height=450>
 <img src="/images/screens-github/home-light-bar.jpg" height=450>
 
 

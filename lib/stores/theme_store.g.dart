@@ -39,21 +39,6 @@ mixin _$ThemeStore on _ThemeStore, Store {
     });
   }
 
-  final _$greenGradientAtom = Atom(name: '_ThemeStore.greenGradient');
-
-  @override
-  bool get greenGradient {
-    _$greenGradientAtom.reportRead();
-    return super.greenGradient;
-  }
-
-  @override
-  set greenGradient(bool value) {
-    _$greenGradientAtom.reportWrite(value, super.greenGradient, () {
-      super.greenGradient = value;
-    });
-  }
-
   final _$defaultGradientAtom = Atom(name: '_ThemeStore.defaultGradient');
 
   @override
@@ -94,33 +79,10 @@ mixin _$ThemeStore on _ThemeStore, Store {
   }
 
   @override
-  void toggleGreenGradient() {
-    final _$actionInfo = _$_ThemeStoreActionController.startAction(
-        name: '_ThemeStore.toggleGreenGradient');
-    try {
-      return super.toggleGreenGradient();
-    } finally {
-      _$_ThemeStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
-  void changeGradient() {
-    final _$actionInfo = _$_ThemeStoreActionController.startAction(
-        name: '_ThemeStore.changeGradient');
-    try {
-      return super.changeGradient();
-    } finally {
-      _$_ThemeStoreActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   String toString() {
     return '''
 dark: ${dark},
 themeData: ${themeData},
-greenGradient: ${greenGradient},
 defaultGradient: ${defaultGradient}
     ''';
   }

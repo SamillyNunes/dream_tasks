@@ -1,3 +1,4 @@
+import 'package:dream_tasks/screens/add_project_screen.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/days_sequence_widget.dart';
@@ -48,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                     ProjectWidget('Flutter', 0.5),
                     ProjectWidget('Fitness', 0.1),
                     ProjectWidget('Teste', 0.9),
-                    ProjectWidget('teste', 0.2, newProject: true,)
+                    _newProject(context)
                   ],
                 )
               )
@@ -142,6 +143,39 @@ class HomeScreen extends StatelessWidget {
       )
     );
   }
+}
+
+Widget _newProject(BuildContext context) {
+  return InkWell(
+    onTap: (){
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context)=>AddProjectScreen()
+        )
+      );
+    },
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Icon(
+          Icons.add_circle_outline,
+          color: Theme.of(context).primaryColor,
+          size: 40,
+
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 10),
+          child: Text(
+            'Adicionar',
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontFamily: _defaultFontFamily
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }
 
 

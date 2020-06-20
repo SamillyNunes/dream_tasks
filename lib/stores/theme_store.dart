@@ -22,18 +22,18 @@ abstract class _ThemeStore with Store {
     toggleDark();
   }
 
-  @observable 
-  bool greenGradient = true; 
+  // @observable 
+  // bool greenGradient = true; 
 
-  @action
-  void toggleGreenGradient() => greenGradient = greenGradient ? false : true;
+  // @action
+  // void toggleGreenGradient() => greenGradient = greenGradient ? false : true;
 
   @observable
   LinearGradient defaultGradient = CustomTheme().greenGradient();
 
-  @action
-  void changeGradient(){
-    defaultGradient= greenGradient ?CustomTheme().pinkGradient() : CustomTheme().greenGradient();
-    toggleGreenGradient();
-  }
+  // @action
+  // void changeGradient(){
+  //   defaultGradient= greenGradient ?CustomTheme().pinkGradient() : CustomTheme().greenGradient();
+  //   toggleGreenGradient();
+  // }
 }

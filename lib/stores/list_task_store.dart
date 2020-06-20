@@ -61,14 +61,14 @@ abstract class _ListTaskStore with Store {
     ]);
 
     if(tasksMap.containsKey(dateF)){
-      tasksMap[dateF].insert(0, new TaskStore(newTask, date));
+      tasksMap[dateF].insert(0, new TaskStore(newTask,date: date));
     } else {
       tasksMap.addAll(
         {
           dateF:ObservableList<TaskStore>()
         }
       );
-      tasksMap[dateF].insert(0, new TaskStore(newTask, date));
+      tasksMap[dateF].insert(0, new TaskStore(newTask, date:date));
 
     }
 
@@ -80,7 +80,7 @@ abstract class _ListTaskStore with Store {
     
 
     
-    tasks.insert(0, new TaskStore(newTask, date));
+    tasks.insert(0, new TaskStore(newTask, date:date));
     newTask="";
     
   }

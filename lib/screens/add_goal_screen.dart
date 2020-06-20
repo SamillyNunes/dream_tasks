@@ -188,7 +188,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               onPressed: () async{
                 DateTime date = await showDatePicker(
                   context: context, 
-                  initialDate: DateTime.now(), 
+                  initialDate: _dayStore.dateSelected, 
                   firstDate: DateTime(2020),
                   lastDate: DateTime(2030)
                 );

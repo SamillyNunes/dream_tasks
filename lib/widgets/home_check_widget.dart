@@ -37,17 +37,21 @@ class HomeCheckWidget extends StatelessWidget {
         VerticalDivider(
           color: Colors.white30,
         ),
-        Text(
-          this.title,
-          style: TextStyle(
-            color: checked ? 
-              Theme.of(context).accentColor : 
-              Color(0xFFFFFFFF) ,
-            fontSize: 15,
-            fontFamily: _defaultFontFamily,
-            fontWeight: FontWeight.bold
-          ),
-        )
+        Flexible(
+          child: Text(
+            this.title,
+            overflow: TextOverflow.clip,
+            style: TextStyle(
+              color: checked ? 
+                Theme.of(context).accentColor : 
+                Color(0xFFFFFFFF) ,
+              fontSize: 15,
+              fontFamily: _defaultFontFamily,
+              fontWeight: FontWeight.bold
+            ),
+          )
+        ),
+        
        ],
      ),
     );

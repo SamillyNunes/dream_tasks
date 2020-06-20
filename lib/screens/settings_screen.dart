@@ -67,35 +67,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 
               ],
             ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.start,
+            //   children: <Widget>[
                 
-                Padding(
-                  padding: EdgeInsets.only(top: 50, left: 20),
-                  child: Text(
-                    'Gradiente:',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize:20 
-                    ),
-                  )
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 40, left: 20),
-                  child: Switch(
-                    value: _themeStore.greenGradient, 
-                    onChanged: (value){
-                      _themeStore.changeGradient();  
-                    },
-                    activeColor: Theme.of(context).accentColor,
-                    inactiveThumbColor: Color(0xFFD9328E),
-                    inactiveTrackColor: Color.fromRGBO(217, 50, 142, 0.5),
-                  )
-                ),
+            //     Padding(
+            //       padding: EdgeInsets.only(top: 50, left: 20),
+            //       child: Text(
+            //         'Gradiente:',
+            //         style: TextStyle(
+            //           color: Theme.of(context).primaryColor,
+            //           fontSize:20 
+            //         ),
+            //       )
+            //     ),
+            //     Padding(
+            //       padding: EdgeInsets.only(top: 40, left: 20),
+            //       child: Switch(
+            //         value: _themeStore.greenGradient, 
+            //         onChanged: (value){
+            //           _themeStore.changeGradient();  
+            //         },
+            //         activeColor: Theme.of(context).accentColor,
+            //         inactiveThumbColor: Color(0xFFD9328E),
+            //         inactiveTrackColor: Color.fromRGBO(217, 50, 142, 0.5),
+            //       )
+            //     ),
                 
-              ],
-            )
+            //   ],
+            // )
           ]
         )
       )

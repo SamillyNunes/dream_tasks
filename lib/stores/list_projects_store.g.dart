@@ -77,6 +77,17 @@ mixin _$ListProjectsStore on _ListProjectsStore, Store {
   }
 
   @override
+  void removeTemporaryTask(int index) {
+    final _$actionInfo = _$_ListProjectsStoreActionController.startAction(
+        name: '_ListProjectsStore.removeTemporaryTask');
+    try {
+      return super.removeTemporaryTask(index);
+    } finally {
+      _$_ListProjectsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void addProject() {
     final _$actionInfo = _$_ListProjectsStoreActionController.startAction(
         name: '_ListProjectsStore.addProject');

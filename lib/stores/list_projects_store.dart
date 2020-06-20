@@ -17,12 +17,18 @@ abstract class _ListProjectsStore with Store{ //levantar excecao se o projeto ja
   String temporaryTaskName;
 
   @action
-  void setTemporaryTaskName(String newValue) => temporaryTaskName = newValue;
+  void setTemporaryTaskName(String newValue){ 
+    temporaryTaskName = newValue;
+  }
 
   ObservableList<String> temporaryTasks = ObservableList<String>();
 
   @action
   void addTemporaryTask() => temporaryTasks.add(temporaryTaskName);
+
+
+  @action
+  void removeTemporaryTask(int index) => temporaryTasks.removeAt(index);
 
   ObservableMap<String, ObservableList<TaskStore>> projects = ObservableMap<String, ObservableList<TaskStore>>();
 
@@ -37,6 +43,8 @@ abstract class _ListProjectsStore with Store{ //levantar excecao se o projeto ja
     for(String s in temporaryTasks){
       projects[projectName].add(new TaskStore(s));
     }
+
+    temporaryTasks.clear();
 
   }
 }

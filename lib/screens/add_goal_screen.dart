@@ -77,14 +77,21 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
                   ),
                   Padding(
                     padding: EdgeInsets.only(left:20),
-                    child: CustomInput("Nome:", _listTaskStore, nome: true),
+                    child: CustomInput(
+                      "Nome:", 
+                      nome: true,
+                      onCustomChange: _listTaskStore.setNewTask,
+                    ),
                   ),
                 ],
               ),
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput("Descrição:", _listTaskStore)
+              child: CustomInput(
+                "Descrição:", 
+                onCustomChange: (value){},
+              )
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
@@ -93,7 +100,13 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
             ),
             Padding(
               padding: EdgeInsets.only(left:20),
-              child: CustomInput("Horário:",_listTaskStore, icon: Icons.access_time)
+              child: CustomInput(
+                "Horário:", 
+                icon: Icons.access_time,
+                onCustomChange: (value){
+                
+                },
+              )
             ),
             Row(
               children: <Widget>[

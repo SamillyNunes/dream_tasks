@@ -1,4 +1,5 @@
 import 'package:dream_tasks/screens/add_project_screen.dart';
+import 'package:dream_tasks/stores/list_projects_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/days_sequence_widget.dart';
@@ -12,6 +13,8 @@ import 'package:provider/provider.dart';
 const String _defaultFontFamily = 'Raleway';
 
 class HomeScreen extends StatelessWidget {
+
+  final ListProjectsStore _listProjectsStore = ListProjectsStore();
 
   @override
   Widget build(BuildContext context) {
@@ -42,17 +45,72 @@ class HomeScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               child: Container(
+                alignment: Alignment.centerLeft,
                 height: MediaQuery.of(context).size.height*0.3,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: <Widget>[
-                    ProjectWidget('Flutter', 0.5),
-                    ProjectWidget('Fitness', 0.1),
-                    ProjectWidget('Teste', 0.9),
-                    _newProject(context)
-                  ],
+                child: Observer(
+                  builder: (context){
+                    if(_listProjectsStore.projects.length==0){
+                      return Padding(
+                        padding: EdgeInsets.only(left:20),
+                        child: _newProject(context),
+                      );
+                    } else{
+                      return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: _listProjectsStore.projects.length,
+                      itemBuilder: (context,index){
+                        String name = _listProjectsStore.projects.keys.toList()[index];
+                        if(index==_listProjectsStore.projects.length-1){
+                          return Row(
+                            children: <Widget>[
+                              ProjectWidget(name, 0.1),
+                              _newProject(context)
+                            ],
+                          );
+                        } else {
+                          return ProjectWidget(name, 0.1);
+                        }
+                      }
+                    );
+                    }
+                    
+                  },
                 )
-              )
+              ),
+            
+              
+              // Container(
+              //   height: MediaQuery.of(context).size.height*0.3,
+              //   // width: MediaQuery.of(context).size.width*1,  
+              //   child: Row(
+              //     // scrollDirection: Axis.horizontal,
+              //     children: <Widget>[
+              //       Observer(
+              //         builder: (context){
+              //           return ListView.builder(
+              //             itemCount: _listProjectsStore.projects.length,
+              //             itemBuilder: (context,index){
+              //               String name = _listProjectsStore.temporaryTasks[index];
+              //               return ProjectWidget(name,0.1);
+              //             }
+              //           );
+              //         },
+              //       ),
+              //       _newProject(context)
+              //     ],
+              //   )
+              // )
+                
+                // ListView(
+                //   scrollDirection: Axis.horizontal,
+                //   children: <Widget>[
+                //     ProjectWidget('Flutter', 0.5),
+                //     ProjectWidget('Fitness', 0.1),
+                //     ProjectWidget('Teste', 0.9),
+                //     _newProject(context)
+                //   ],
+                // )
+              // )
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
@@ -143,39 +201,41 @@ class HomeScreen extends StatelessWidget {
       )
     );
   }
-}
 
-Widget _newProject(BuildContext context) {
-  return InkWell(
-    onTap: (){
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context)=>AddProjectScreen()
-        )
-      );
-    },
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Icon(
-          Icons.add_circle_outline,
-          color: Theme.of(context).primaryColor,
-          size: 40,
+  
+  Widget _newProject(BuildContext context) {
+    return InkWell(
+      onTap: (){
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context)=>AddProjectScreen(_listProjectsStore)
+          )
+        );
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Icon(
+            Icons.add_circle_outline,
+            color: Theme.of(context).primaryColor,
+            size: 40,
 
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 10),
-          child: Text(
-            'Adicionar',
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontFamily: _defaultFontFamily
+          ),
+          Padding(
+            padding: EdgeInsets.only(top: 10),
+            child: Text(
+              'Adicionar',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontFamily: _defaultFontFamily
+              ),
             ),
           ),
-        ),
-      ],
-    ),
-  );
+        ],
+      ),
+    );
+  }
 }
+
 
 

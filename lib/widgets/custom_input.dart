@@ -1,4 +1,4 @@
-import 'package:dream_tasks/stores/list_task_store.dart';
+
 import 'package:flutter/material.dart';
 
 const String _defaultFontFamily = 'Raleway';
@@ -7,36 +7,31 @@ class CustomInput extends StatelessWidget {
   final String label;
   final IconData icon;
   final bool nome;
-  final ListTaskStore listTaskStore;
-  final Function(DateTime) onDateSelected;
+  final Function(String) onCustomChange;
+  final Function(String) onCustomSubmited;
+  final Function onSuffixPressed;
+  final TextEditingController controller;
 
-  CustomInput(this.label, this.listTaskStore, {this.icon, this.nome=false, this.onDateSelected});
+  CustomInput(this.label, {@required this.onCustomChange, this.onCustomSubmited, this.icon, this.nome=false, this.onSuffixPressed, this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width*0.9,
+      // width: MediaQuery.of(context).size.width*0.9,
       child: TextFormField(
-        onChanged: (value){
-          if(nome){
-            listTaskStore.setNewTask(value);
-          }
-        },
+        controller: controller,
+        onChanged: onCustomChange,
+        onFieldSubmitted: onCustomSubmited ,
         style: TextStyle(
           color: Theme.of(context).primaryColor,                    
         ),
         decoration: InputDecoration(
           suffixIcon: IconButton(
-            icon: IconButton(
-              icon: Icon(
-                icon,
-                color: Theme.of(context).primaryColor,
-              ), 
-              onPressed: (){ //observar q todos os inputs tao com a acao da data
-                
-              }
+            icon: Icon(
+              icon,
+              color: Theme.of(context).primaryColor,
             ), 
-            onPressed: (){}
+            onPressed: onSuffixPressed
           ),
           labelText: label,
           labelStyle: TextStyle(

@@ -63,7 +63,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     calendarController: _calendarController,
                     onDayLongPressed: (date, list){
                       print("Agora");
-                      _listEvents.addEvent("Exemplo de evento "+date.day.toString(), "Essa eh uma descricao bb", date);
+                      // _listEvents.addEvent("Exemplo de evento "+date.day.toString(), "Essa eh uma descricao bb", date);
                     },
                     onDaySelected: (date, listEvents){
                       print("day selected");

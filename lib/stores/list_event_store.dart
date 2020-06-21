@@ -19,7 +19,7 @@ abstract class _ListEventStore with Store {
   ObservableMap<String,List<DayEvent>> events = ObservableMap<String,List<DayEvent>>();
 
   @action
-  void addEvent(String titleEvent, String description, DateTime date){
+  void addEvent(DateTime date){
     String chave = date.day.toString()+"0"+date.month.toString()+date.year.toString();
 
     //Se nao tiver a chave, ele cria uma nova
@@ -28,7 +28,22 @@ abstract class _ListEventStore with Store {
         '$chave':[]
       });
     } 
-    events[chave].add(new DayEvent(titleEvent, description, date));
-    
+    events[chave].add(new DayEvent(nameEvent, descriptionEvent, date));
+
   }
+
+  
+    @observable
+    String nameEvent;
+
+    @action
+    void setNameEvent(String newName) => nameEvent = newName;
+
+    
+    @observable
+    String descriptionEvent;
+
+    @action
+    void setDescriptionEvent(String newDesc) => descriptionEvent = newDesc;
+    
 }

@@ -24,6 +24,36 @@ mixin _$ListEventStore on _ListEventStore, Store {
     });
   }
 
+  final _$nameEventAtom = Atom(name: '_ListEventStore.nameEvent');
+
+  @override
+  String get nameEvent {
+    _$nameEventAtom.reportRead();
+    return super.nameEvent;
+  }
+
+  @override
+  set nameEvent(String value) {
+    _$nameEventAtom.reportWrite(value, super.nameEvent, () {
+      super.nameEvent = value;
+    });
+  }
+
+  final _$descriptionEventAtom = Atom(name: '_ListEventStore.descriptionEvent');
+
+  @override
+  String get descriptionEvent {
+    _$descriptionEventAtom.reportRead();
+    return super.descriptionEvent;
+  }
+
+  @override
+  set descriptionEvent(String value) {
+    _$descriptionEventAtom.reportWrite(value, super.descriptionEvent, () {
+      super.descriptionEvent = value;
+    });
+  }
+
   final _$_ListEventStoreActionController =
       ActionController(name: '_ListEventStore');
 
@@ -39,11 +69,33 @@ mixin _$ListEventStore on _ListEventStore, Store {
   }
 
   @override
-  void addEvent(String titleEvent, String description, DateTime date) {
+  void addEvent(DateTime date) {
     final _$actionInfo = _$_ListEventStoreActionController.startAction(
         name: '_ListEventStore.addEvent');
     try {
-      return super.addEvent(titleEvent, description, date);
+      return super.addEvent(date);
+    } finally {
+      _$_ListEventStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setNameEvent(String newName) {
+    final _$actionInfo = _$_ListEventStoreActionController.startAction(
+        name: '_ListEventStore.setNameEvent');
+    try {
+      return super.setNameEvent(newName);
+    } finally {
+      _$_ListEventStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setDescriptionEvent(String newDesc) {
+    final _$actionInfo = _$_ListEventStoreActionController.startAction(
+        name: '_ListEventStore.setDescriptionEvent');
+    try {
+      return super.setDescriptionEvent(newDesc);
     } finally {
       _$_ListEventStoreActionController.endAction(_$actionInfo);
     }
@@ -52,7 +104,9 @@ mixin _$ListEventStore on _ListEventStore, Store {
   @override
   String toString() {
     return '''
-dateSelected: ${dateSelected}
+dateSelected: ${dateSelected},
+nameEvent: ${nameEvent},
+descriptionEvent: ${descriptionEvent}
     ''';
   }
 }

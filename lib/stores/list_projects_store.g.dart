@@ -40,6 +40,36 @@ mixin _$ListProjectsStore on _ListProjectsStore, Store {
     });
   }
 
+  final _$barValueAtom = Atom(name: '_ListProjectsStore.barValue');
+
+  @override
+  double get barValue {
+    _$barValueAtom.reportRead();
+    return super.barValue;
+  }
+
+  @override
+  set barValue(double value) {
+    _$barValueAtom.reportWrite(value, super.barValue, () {
+      super.barValue = value;
+    });
+  }
+
+  final _$barValueTaxAtom = Atom(name: '_ListProjectsStore.barValueTax');
+
+  @override
+  double get barValueTax {
+    _$barValueTaxAtom.reportRead();
+    return super.barValueTax;
+  }
+
+  @override
+  set barValueTax(double value) {
+    _$barValueTaxAtom.reportWrite(value, super.barValueTax, () {
+      super.barValueTax = value;
+    });
+  }
+
   final _$_ListProjectsStoreActionController =
       ActionController(name: '_ListProjectsStore');
 
@@ -99,10 +129,56 @@ mixin _$ListProjectsStore on _ListProjectsStore, Store {
   }
 
   @override
+  void addBarValue() {
+    final _$actionInfo = _$_ListProjectsStoreActionController.startAction(
+        name: '_ListProjectsStore.addBarValue');
+    try {
+      return super.addBarValue();
+    } finally {
+      _$_ListProjectsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void subBarValue() {
+    final _$actionInfo = _$_ListProjectsStoreActionController.startAction(
+        name: '_ListProjectsStore.subBarValue');
+    try {
+      return super.subBarValue();
+    } finally {
+      _$_ListProjectsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void restartBarValue(String key) {
+    final _$actionInfo = _$_ListProjectsStoreActionController.startAction(
+        name: '_ListProjectsStore.restartBarValue');
+    try {
+      return super.restartBarValue(key);
+    } finally {
+      _$_ListProjectsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setBarValueTax(int quantItems) {
+    final _$actionInfo = _$_ListProjectsStoreActionController.startAction(
+        name: '_ListProjectsStore.setBarValueTax');
+    try {
+      return super.setBarValueTax(quantItems);
+    } finally {
+      _$_ListProjectsStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 projectName: ${projectName},
-temporaryTaskName: ${temporaryTaskName}
+temporaryTaskName: ${temporaryTaskName},
+barValue: ${barValue},
+barValueTax: ${barValueTax}
     ''';
   }
 }

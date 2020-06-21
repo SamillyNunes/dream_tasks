@@ -14,7 +14,7 @@ const String _defaultFontFamily = 'Raleway';
 
 class HomeScreen extends StatelessWidget {
 
-  final ListProjectsStore _listProjectsStore = ListProjectsStore();
+  final ListProjectsStore _listProjectsStore = ListProjectsStore(); //ta criando um novo toda vez q entra nessa janela
 
   @override
   Widget build(BuildContext context) {

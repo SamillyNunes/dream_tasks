@@ -1,6 +1,7 @@
 import 'package:dream_tasks/screens/project_screen.dart';
 import 'package:dream_tasks/stores/list_projects_store.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 const String _defaultFontFamily = 'Raleway';
@@ -34,24 +35,28 @@ class ProjectWidget extends StatelessWidget {
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal:10, vertical: 10),
-                child: CircularPercentIndicator(
-                  radius: 100.0,
-                  backgroundColor: Color(0xFFFFFFFF), //cor fixa em ambos os temas
-                  percent: value,
-                  center: Text(
-                    "${(value*100).floor()}%",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xFFFFFFFF)
-                    ),
-                  ),
-                  linearGradient: LinearGradient(
-                    colors: [
-                      Color(0xFF0CCF4F),
-                      Color(0xFF22BFC3),
-                    ]
-                  ),
+                child: Observer(
+                  builder: (context){
+                    return CircularPercentIndicator(
+                      radius: 100.0,
+                      backgroundColor: Color(0xFFFFFFFF), //cor fixa em ambos os temas
+                      percent: _listProjectsStore.barValue,
+                      center: Text(
+                        ((_listProjectsStore.barValue*100).round().toString())+"%",
+                        style: TextStyle(
+                          fontSize: 25,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xFFFFFFFF)
+                        ),
+                      ),
+                      linearGradient: LinearGradient(
+                        colors: [
+                          Color(0xFF0CCF4F),
+                          Color(0xFF22BFC3),
+                        ]
+                      ),
+                    );
+                  },
                 ),
               ),
               Text(

@@ -52,27 +52,27 @@ abstract class _ListTaskStore with Store {
 
   @action
   void addTask(DateTime date, DateTime selectedDate){
-    final dateSelected = formatDate(selectedDate, [
+    final dateSelected = formatDate(selectedDate, [ //formatando a atual data selecionada p calcular a barra
       dd, '-',mm,'-',yyyy
     ]);
     
-    final dateF = formatDate(date, [
+    final dateF = formatDate(date, [ //formatanto a data chave da meta
       dd, '-',mm,'-',yyyy
     ]);
 
-    if(tasksMap.containsKey(dateF)){
+    if(tasksMap.containsKey(dateF)){ //se ja tiver a chave, so vai adicionar mais uma meta a essa data
       tasksMap[dateF].insert(0, new TaskStore(newTask,date: date));
     } else {
-      tasksMap.addAll(
+      tasksMap.addAll( //se nao tiver, vai primeiro criar a chave
         {
           dateF:ObservableList<TaskStore>()
         }
       );
-      tasksMap[dateF].insert(0, new TaskStore(newTask, date:date));
+      tasksMap[dateF].insert(0, new TaskStore(newTask, date:date)); //e depois adicionar a tarefa na chave
 
     }
 
-    if(dateSelected==dateF){
+    if(dateSelected==dateF){ //se as duas datas forem iguais, vai ajeitar a barra de progresso
       setBarValueTax(tasksMap[dateF].length); 
       restartBarValue(dateF);
       incrementPending();

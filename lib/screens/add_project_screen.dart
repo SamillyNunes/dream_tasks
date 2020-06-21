@@ -83,9 +83,23 @@ class AddProjectScreen extends StatelessWidget {
                 icon: Icons.add_box,
                 onCustomSubmited: (value){
                   _listProjectsStore.addTemporaryTask();
+
+                    //para limpar o campo depois de enviar
+                    WidgetsBinding.instance.addPostFrameCallback(
+                      (_)=>_controller.clear()
+                    );
+                  
                 },
                 onCustomChange: _listProjectsStore.setTemporaryTaskName,
-                onSuffixPressed: _listProjectsStore.addTemporaryTask,
+                onSuffixPressed: (){
+                  _listProjectsStore.addTemporaryTask();
+
+                  //para limpar o campo depois de enviar
+                  WidgetsBinding.instance.addPostFrameCallback(
+                    (_)=>_controller.clear()
+                  );
+                },
+                controller: _controller,
               ),
             ),
             Padding(

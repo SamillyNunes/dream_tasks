@@ -1,6 +1,10 @@
 import 'package:dream_tasks/stores/list_projects_store.dart';
 import 'package:dream_tasks/widgets/goal_tile_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:provider/provider.dart';
+import 'package:dream_tasks/stores/theme_store.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
@@ -58,17 +62,17 @@ class ProjectScreen extends StatelessWidget {
                 
               ),
             ),
-            // Observer( //n funcionando pq tem q ser uma barra de acordo com o dia
-            //   builder: (_){
-            //     return LinearPercentIndicator(
-            //       percent: _listTaskStore.barValue,
-            //       lineHeight: 12.0,
-            //       linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
-            //       backgroundColor: Theme.of(context).cardColor,
-            //       linearGradient: Provider.of<ThemeStore>(context).defaultGradient,
-            //     );
-            //   }
-            // )
+            Observer(
+              builder: (_){
+                return LinearPercentIndicator(
+                  percent: _listProjectsStore.barValue, //implementar uma animacao pra quanto completar tudo
+                  lineHeight: 12.0,
+                  linearStrokeCap: LinearStrokeCap.butt, //para deixar reto
+                  backgroundColor: Theme.of(context).cardColor,
+                  linearGradient: Provider.of<ThemeStore>(context).defaultGradient,
+                );
+              }
+            )
           ],
           
         ),

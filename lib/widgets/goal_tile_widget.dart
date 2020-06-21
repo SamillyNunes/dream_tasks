@@ -45,7 +45,13 @@ class GoalTileWidget extends StatelessWidget {
                       listTaskStore.incrementPending();
                     }
                   } else {
-
+                    bool value = listProjectsStore.projects[projectName][index].toggle();
+                    if(value){
+                      listProjectsStore.addBarValue();
+                      print(listProjectsStore.barValue);
+                    } else {
+                      listProjectsStore.subBarValue();
+                    }
                   }
                   
                 },

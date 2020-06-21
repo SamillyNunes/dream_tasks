@@ -63,12 +63,12 @@ class HomeScreen extends StatelessWidget {
                         if(index==_listProjectsStore.projects.length-1){
                           return Row(
                             children: <Widget>[
-                              ProjectWidget(name, 0.1),
+                              ProjectWidget(name, 0.1, _listProjectsStore),
                               _newProject(context)
                             ],
                           );
                         } else {
-                          return ProjectWidget(name, 0.1);
+                          return ProjectWidget(name, 0.1, _listProjectsStore);
                         }
                       }
                     );

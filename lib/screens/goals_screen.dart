@@ -151,7 +151,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                             return ListView.builder(
                               itemCount: _listTaskStore.tasksMap[dateKey].length, //ver isso, o ide
                               itemBuilder: (context,index){
-                                return GoalTileWidget(_listTaskStore, index, dateKey);
+                                return GoalTileWidget(index, dateKey:dateKey, listTaskStore: _listTaskStore);
                               }
                             );
                           } else {

@@ -1,8 +1,15 @@
+import 'package:dream_tasks/stores/list_projects_store.dart';
+import 'package:dream_tasks/widgets/goal_tile_widget.dart';
 import 'package:flutter/material.dart';
 
 const String _defaultFontFamily = 'Raleway';
 
 class ProjectScreen extends StatelessWidget {
+  final String name;
+  final ListProjectsStore _listProjectsStore;
+
+  ProjectScreen(this.name,this._listProjectsStore);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -21,9 +28,9 @@ class ProjectScreen extends StatelessWidget {
               }
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
               child: Text(
-                'Projeto x',
+                name,
                 style: TextStyle(
                   fontFamily: _defaultFontFamily,
                   color: Theme.of(context).primaryColor,
@@ -41,7 +48,12 @@ class ProjectScreen extends StatelessWidget {
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(20),
-                  child: Container()
+                  child: ListView.builder(
+                    itemCount: _listProjectsStore.projects[name].length,
+                    itemBuilder: (context,index){
+                      return GoalTileWidget(index, projectName: name, listProjectsStore: _listProjectsStore,);
+                    }
+                  )
                 ),
                 
               ),

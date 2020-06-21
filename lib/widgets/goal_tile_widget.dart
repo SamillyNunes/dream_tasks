@@ -1,3 +1,4 @@
+import 'package:dream_tasks/stores/list_projects_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/widgets/custom_check_widget.dart';
 import 'package:flutter/material.dart';
@@ -5,11 +6,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class GoalTileWidget extends StatelessWidget {
-  final ListTaskStore _listTaskStore;
+  final ListTaskStore listTaskStore;
+  final ListProjectsStore listProjectsStore;
+  final String projectName;
   final int index;
   final String dateKey;
-
-  GoalTileWidget(this._listTaskStore,this.index, this.dateKey);
+  GoalTileWidget(this.index, {this.listTaskStore,this.dateKey, this.projectName, this.listProjectsStore});
 
   @override
   Widget build(BuildContext context) {
@@ -25,24 +27,37 @@ class GoalTileWidget extends StatelessWidget {
           ),
           child: Observer(
             builder: (_){
+              bool isGoalDone = listTaskStore!=null? 
+                                listTaskStore.tasksMap[dateKey][index].done
+                                : listProjectsStore.projects[projectName][index].done;
+
               return ListTile(
                 onTap: (){
-                  bool value = _listTaskStore.tasksMap[dateKey][index].toggle();
-                  if(value){
-                    _listTaskStore.addBarValue();
-                    _listTaskStore.incrementDones();
-                    _listTaskStore.decrementPending();
+                  if(listTaskStore!=null){
+                    bool value = listTaskStore.tasksMap[dateKey][index].toggle();
+                    if(value){
+                      listTaskStore.addBarValue();
+                      listTaskStore.incrementDones();
+                      listTaskStore.decrementPending();
+                    } else {
+                      listTaskStore.subBarValue();
+                      listTaskStore.decrementDones();
+                      listTaskStore.incrementPending();
+                    }
                   } else {
-                    _listTaskStore.subBarValue();
-                    _listTaskStore.decrementDones();
-                    _listTaskStore.incrementPending();
+
                   }
+                  
                 },
-                leading: CustomCheckWidget(_listTaskStore.tasksMap[dateKey][index].done),
+                leading: listTaskStore!=null ?
+                           CustomCheckWidget(isGoalDone)
+                           : CustomCheckWidget(isGoalDone),
                 title: Text(
-                  _listTaskStore.tasksMap[dateKey][index].goalTitle,
+                  listTaskStore!=null ?
+                    listTaskStore.tasksMap[dateKey][index].goalTitle
+                    : listProjectsStore.projects[projectName][index].goalTitle,
                   style: TextStyle(
-                    color: _listTaskStore.tasksMap[dateKey][index].done ? 
+                    color: isGoalDone ? 
                       Theme.of(context).disabledColor 
                       : Theme.of(context).accentColor,
                   ),

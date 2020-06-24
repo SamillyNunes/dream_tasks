@@ -1,6 +1,7 @@
 import 'package:dream_tasks/global/app_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'theme_store.g.dart';
 
@@ -18,7 +19,13 @@ abstract class _ThemeStore with Store {
 
   @action
   void changeTheme(){
-    themeData= dark ? CustomTheme().lightTheme() : CustomTheme().darkTheme();
+    if(dark){
+      themeData = CustomTheme().lightTheme();
+      _saveTheme('light');
+    } else{
+      themeData = CustomTheme().darkTheme();
+      _saveTheme('dark');
+    }
     toggleDark();
   }
 
@@ -36,4 +43,25 @@ abstract class _ThemeStore with Store {
   //   defaultGradient= greenGradient ?CustomTheme().pinkGradient() : CustomTheme().greenGradient();
   //   toggleGreenGradient();
   // }
+
+  void _saveTheme(String theme) async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('theme', theme);
+  }
+
+  @action
+  Future<void> getTheme() async{
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    
+    if(prefs.containsKey('theme')){
+      if(prefs.getString('theme')=='light'){
+        themeData = CustomTheme().lightTheme();
+        dark = false;
+      } else{
+        themeData = CustomTheme().darkTheme();
+        dark=true;
+      }
+
+    }
+  }
 }

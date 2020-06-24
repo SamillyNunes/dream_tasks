@@ -11,24 +11,28 @@ import 'package:provider/provider.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Provider<ListTaskStore>(
-      create: (_)=>ListTaskStore(),
-      child: Provider<ThemeStore>(
-        create: (_)=>ThemeStore(),
-        child: Observer(
-          builder: (context){
-            print('testando');
-            return MaterialApp(
-              title: 'Dream Tasks',
-              debugShowCheckedModeBanner: false,
-              theme: Provider.of<ThemeStore>(context).themeData,
-              home: HomeScreen(),
-            );
-          },
+    return MultiProvider(
+      providers: [
+        Provider<ListTaskStore>(
+          create: (_)=>ListTaskStore(),
+        ),
+        Provider<ThemeStore>(
+          create: (_)=>ThemeStore(),
         )
+      ],
+      child: Observer(
+        builder: (context){
+          Provider.of<ThemeStore>(context).getTheme();
+
+          return MaterialApp(
+            title: 'Dream Tasks',
+            debugShowCheckedModeBanner: false,
+            theme: Provider.of<ThemeStore>(context).themeData,
+            home: HomeScreen(),
+          );
+        },
       )
     );
   }

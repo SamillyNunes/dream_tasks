@@ -54,6 +54,13 @@ mixin _$ThemeStore on _ThemeStore, Store {
     });
   }
 
+  final _$getThemeAsyncAction = AsyncAction('_ThemeStore.getTheme');
+
+  @override
+  Future<void> getTheme() {
+    return _$getThemeAsyncAction.run(() => super.getTheme());
+  }
+
   final _$_ThemeStoreActionController = ActionController(name: '_ThemeStore');
 
   @override

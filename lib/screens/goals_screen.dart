@@ -1,7 +1,7 @@
-import 'package:date_format/date_format.dart';
 import 'package:dream_tasks/screens/add_goal_screen.dart';
 import 'package:dream_tasks/stores/day_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
+import 'package:dream_tasks/utils/utils.dart';
 import 'package:dream_tasks/widgets/custom_drawer.dart';
 import 'package:dream_tasks/widgets/day_widget.dart';
 import 'package:dream_tasks/widgets/goal_tile_widget.dart';
@@ -12,9 +12,6 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:dream_tasks/stores/theme_store.dart';
 
-const List<String> format = [dd, '-',mm,'-',yyyy];
-
-const String _defaultFontFamily = 'Raleway';
 class GoalsScreen extends StatefulWidget {
   @override
   _GoalsScreenState createState() => _GoalsScreenState();
@@ -36,7 +33,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
     reaction(
       (_)=>_dayStore.dateSelected, 
       (dateSelected){
-        dateKey = formatDate(dateSelected, format);
+        dateKey = Utils.formatDateTime(dateSelected);
          _listTaskStore.setBarValueTax(_listTaskStore.tasksMap[dateKey].length);
         
         _listTaskStore.restartBarValue(
@@ -52,7 +49,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
   void initState() {
     super.initState();
     _date = DateTime.now(); 
-    dateKey = formatDate(_date, format);
+    dateKey = Utils.formatDateTime(_date);
     _dayStore.changeDaySelected(_date); //ja para iniciar com o dia atual
 
     
@@ -100,7 +97,6 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   child: Text(
                     'Metas',
                     style: TextStyle(
-                      fontFamily: _defaultFontFamily,
                       color: Theme.of(context).primaryColor,
                       fontSize: 40
                     ),
@@ -144,7 +140,7 @@ class _GoalsScreenState extends State<GoalsScreen> {
                   padding: EdgeInsets.all(20),
                   child: Observer(
                     builder: (context){
-                      dateKey = formatDate(_dayStore.dateSelected, format);
+                      dateKey = Utils.formatDateTime(_dayStore.dateSelected);
                       return Observer(
                         builder: (context){
                           if(_listTaskStore.tasksMap.containsKey(dateKey)){

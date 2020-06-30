@@ -6,9 +6,6 @@ import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 
-const String _defaultFontFamily = 'Raleway';
-
-
 class AddProjectScreen extends StatelessWidget {
 
   final ListProjectsStore _listProjectsStore ; //ver se o final vai atrapalhar o mobx
@@ -50,7 +47,6 @@ class AddProjectScreen extends StatelessWidget {
                       'Adicione um projeto',
                       style: TextStyle(
                         color: Color(0xFFFFFFFF), //fixo
-                        fontFamily: _defaultFontFamily,
                         fontSize: 30
                       ),
                     ),
@@ -149,7 +145,6 @@ class AddProjectScreen extends StatelessWidget {
                   'Adicionar',
                   style: TextStyle(
                     color: Color(0xFFFFFFFF), //fixo
-                    fontFamily: _defaultFontFamily,
                     fontSize: 20
                   ),
                 )

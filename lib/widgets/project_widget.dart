@@ -3,9 +3,6 @@ import 'package:dream_tasks/stores/list_projects_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
-const String _defaultFontFamily = 'Raleway';
-
 class ProjectWidget extends StatelessWidget {
 
   final String name;
@@ -63,7 +60,6 @@ class ProjectWidget extends StatelessWidget {
                 name,
                 style: TextStyle(
                   color: Color(0xFFFFFFFF), //cor fixa em ambos os temas
-                  fontFamily: _defaultFontFamily,
                   fontSize: 15
                 ),
               )

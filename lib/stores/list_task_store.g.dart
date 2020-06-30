@@ -143,22 +143,22 @@ mixin _$ListTaskStore on _ListTaskStore, Store {
   }
 
   @override
-  void addTask(DateTime date, DateTime selectedDate) {
+  void addTask(DateTime date, DateTime selectedDate, List<int> repeatDaysList) {
     final _$actionInfo = _$_ListTaskStoreActionController.startAction(
         name: '_ListTaskStore.addTask');
     try {
-      return super.addTask(date, selectedDate);
+      return super.addTask(date, selectedDate, repeatDaysList);
     } finally {
       _$_ListTaskStoreActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void removeTask(int index) {
+  void removeTask(int index, String dateKey) {
     final _$actionInfo = _$_ListTaskStoreActionController.startAction(
         name: '_ListTaskStore.removeTask');
     try {
-      return super.removeTask(index);
+      return super.removeTask(index, dateKey);
     } finally {
       _$_ListTaskStoreActionController.endAction(_$actionInfo);
     }

@@ -1,5 +1,6 @@
 import 'package:date_format/date_format.dart';
 import 'package:dream_tasks/stores/task_store.dart';
+import 'package:dream_tasks/utils/utils.dart';
 import 'package:mobx/mobx.dart';
 
 part 'list_task_store.g.dart';
@@ -51,26 +52,25 @@ abstract class _ListTaskStore with Store {
   ObservableList<TaskStore> tasks = ObservableList<TaskStore>();
 
   @action
-  void addTask(DateTime date, DateTime selectedDate){
-    final dateSelected = formatDate(selectedDate, [ //formatando a atual data selecionada p calcular a barra
-      dd, '-',mm,'-',yyyy
-    ]);
-    
-    final dateF = formatDate(date, [ //formatanto a data chave da meta
-      dd, '-',mm,'-',yyyy
-    ]);
+  void addTask(DateTime date, DateTime selectedDate, List<int> repeatDaysList){
+    //formatando a atual data selecionada p calcular a barra
+    final dateSelected = Utils.formatDateTime(selectedDate);
+     //formatanto a data chave da meta
+    final dateF = Utils.formatDateTime(date);
 
     if(tasksMap.containsKey(dateF)){ //se ja tiver a chave, so vai adicionar mais uma meta a essa data
-      tasksMap[dateF].insert(0, new TaskStore(newTask,date: date));
+      tasksMap[dateF].insert(0, new TaskStore(newTask,date: date, repeatDays:repeatDaysList ));
     } else {
       tasksMap.addAll( //se nao tiver, vai primeiro criar a chave
         {
           dateF:ObservableList<TaskStore>()
         }
       );
-      tasksMap[dateF].insert(0, new TaskStore(newTask, date:date)); //e depois adicionar a tarefa na chave
+      tasksMap[dateF].insert(0, new TaskStore(newTask, date:date, repeatDays: repeatDaysList)); //e depois adicionar a tarefa na chave
 
     }
+
+    print(tasksMap[dateF].first.repeatDays);
 
     if(dateSelected==dateF){ //se as duas datas forem iguais, vai ajeitar a barra de progresso
       setBarValueTax(tasksMap[dateF].length); 
@@ -86,11 +86,11 @@ abstract class _ListTaskStore with Store {
   }
 
   @action
-  void removeTask(int index){
-    tasks[index].done ? decrementDones() : decrementPending(); //decrementando da contagem de tarefas do dia
-    tasks.removeAt(index);
-    setBarValueTax(tasks.length); 
-    // restartBarValue(barValueTax);
+  void removeTask(int index, String dateKey){
+    tasksMap[dateKey][index].done ? decrementDones() : decrementPending(); //decrementando da contagem de tarefas do dia
+    tasksMap[dateKey].removeAt(index);
+    setBarValueTax(tasksMap[dateKey].length);
+    restartBarValue(dateKey);
   }
 
   @observable

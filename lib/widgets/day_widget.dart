@@ -2,8 +2,6 @@ import 'package:dream_tasks/stores/day_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-const String _defaultFontFamily = 'Raleway';
-
 class DayWidget extends StatelessWidget {
   final DateTime date;
   final DayStore dayStore;
@@ -33,7 +31,6 @@ class DayWidget extends StatelessWidget {
                 Text(
                   "${date.day}",
                   style: TextStyle(
-                    fontFamily: _defaultFontFamily,
                     fontSize: 25,
                     color: dayStore.dateSelected==date ? 
                       Theme.of(context).accentColor
@@ -44,7 +41,6 @@ class DayWidget extends StatelessWidget {
                 Text(
                   week[date.weekday-1],
                   style: TextStyle(
-                    fontFamily: _defaultFontFamily,
                     fontSize: 20,
                     color: dayStore.dateSelected==date ? 
                       Theme.of(context).accentColor 

@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 
-const String _defaultFontFamily = 'Raleway';
-
 class CustomInput extends StatelessWidget {
   final String label;
   final IconData icon;
@@ -36,7 +34,6 @@ class CustomInput extends StatelessWidget {
           labelText: label,
           labelStyle: TextStyle(
             color: nome? Color(0xFFFFFFFF) : Theme.of(context).primaryColor, //input nome fixo na cor branca
-            fontFamily: _defaultFontFamily
           ),
           
           enabledBorder: UnderlineInputBorder(

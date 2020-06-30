@@ -10,9 +10,6 @@ import 'package:dream_tasks/widgets/project_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-
-const String _defaultFontFamily = 'Raleway';
-
 class HomeScreen extends StatelessWidget {
 
   final ListProjectsStore _listProjectsStore = ListProjectsStore(); //ta criando um novo toda vez q entra nessa janela
@@ -32,7 +29,6 @@ class HomeScreen extends StatelessWidget {
               child: Text(
                 'Olá, Samilly!',
                 style: TextStyle(
-                  fontFamily: _defaultFontFamily,
                   color: Theme.of(context).primaryColor,
                   fontSize: 30
                 ),
@@ -120,7 +116,6 @@ class HomeScreen extends StatelessWidget {
                   Text(
                     'Metas diárias',
                     style: TextStyle(
-                      fontFamily: _defaultFontFamily,
                       color: Theme.of(context).primaryColor,
                       fontSize: 20
                     ),
@@ -195,7 +190,6 @@ class HomeScreen extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          fontFamily: _defaultFontFamily,
           color: Theme.of(context).primaryColor,
           fontSize: 20
         ),
@@ -228,7 +222,6 @@ class HomeScreen extends StatelessWidget {
               'Adicionar',
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontFamily: _defaultFontFamily
               ),
             ),
           ),

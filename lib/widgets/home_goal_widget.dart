@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const String _defaultFontFamily = 'Raleway';
-
 class HomeGoalWidget extends StatelessWidget {
 
   final int quantity;
@@ -44,7 +42,6 @@ class HomeGoalWidget extends StatelessWidget {
               active ? 'Concluídos' : 'Pendentes',
               style: TextStyle(
                 color: Color(0xFFFFFFFF), //cor fixa em ambos os temas
-                fontFamily: _defaultFontFamily,
                 fontSize: 8
               ),
             )

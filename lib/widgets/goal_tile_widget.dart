@@ -78,7 +78,9 @@ class GoalTileWidget extends StatelessWidget {
             color: Colors.red,
             icon: Icons.delete_outline,
             onTap: (){
-              // lts.removeTask(index);
+              if(listTaskStore!=null){
+                listTaskStore.removeTask(index, dateKey);
+              }
             },
           )
         ],

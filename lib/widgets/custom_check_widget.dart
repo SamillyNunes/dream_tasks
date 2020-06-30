@@ -12,21 +12,23 @@ class CustomCheckWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: <Widget>[
-        Container(
-          width: 22,
-          height: 22,          
-          decoration: BoxDecoration(
-            border: borderColor!=null ? Border.all(color: borderColor) : Border.all(color: Theme.of(context).accentColor),
-            gradient: checked ? Provider.of<ThemeStore>(context).defaultGradient : null
+        children: <Widget>[
+          Container(
+            width: 22,
+            height: 22,          
+            decoration: BoxDecoration(
+              border: borderColor!=null ? 
+                        Border.all(color: borderColor) : Border.all(color: Theme.of(context).accentColor),
+                       
+              gradient: checked ? Provider.of<ThemeStore>(context).defaultGradient : null
+            ),
           ),
-        ),
-        Image.asset(
-          'images/icons/small-check-icon.png',
-          width: 25,
-          color: checked ?  color : Colors.transparent,
-        ) 
-      ],
-    );
+          Image.asset(
+            'images/icons/small-check-icon.png',
+            width: 25,
+            color: checked ?  color : Colors.transparent,
+          ) 
+        ],
+      );
   }
 }

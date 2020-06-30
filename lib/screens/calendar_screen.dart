@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-const String _defaultFontFamily = 'Raleway';
 class CalendarScreen extends StatefulWidget {
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
@@ -59,7 +58,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               child: Text(
                 'Calendário',
                 style: TextStyle(
-                  fontFamily: _defaultFontFamily,
                   color: Theme.of(context).primaryColor,
                   fontSize: 40
                 ),
@@ -128,35 +126,22 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     headerStyle: HeaderStyle(
                       centerHeaderTitle: true,
-                      titleTextStyle: TextStyle(
-                        fontFamily: _defaultFontFamily,
-                      )
                     ),
                     daysOfWeekStyle: DaysOfWeekStyle(
-                      weekdayStyle: TextStyle(
-                        fontFamily: _defaultFontFamily,
-                      ),
                       weekendStyle: TextStyle(
-                        fontFamily: _defaultFontFamily,
                         color: Theme.of(context).accentColor
                       )
                     ),
                     calendarStyle: CalendarStyle(
                       selectedColor:Theme.of(context).accentColor,
                       todayColor: Theme.of(context).accentColor,
-                      weekdayStyle: TextStyle(
-                        fontFamily: _defaultFontFamily
-                      ),
                       weekendStyle: TextStyle(
-                        fontFamily: _defaultFontFamily,
                         color: Theme.of(context).accentColor
                       ),
                       unavailableStyle: TextStyle(
-                        fontFamily: _defaultFontFamily,
                         color:Theme.of(context).disabledColor
                       ),
                       outsideWeekendStyle: TextStyle(
-                        fontFamily: _defaultFontFamily,
                         color: Theme.of(context).disabledColor
                       ),
                     ),
@@ -170,7 +155,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
               child: Text(
                 'Eventos',
                 style: TextStyle(
-                  fontFamily: _defaultFontFamily,
                   color: Theme.of(context).primaryColor,
                   fontSize: 25
                 ),
@@ -248,7 +232,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                   'Adicionar',
                   style: TextStyle(
                     color: Color(0xFFFFFFFF), //fixo
-                    fontFamily: _defaultFontFamily,
                     fontSize: 20
                   ),
                 )

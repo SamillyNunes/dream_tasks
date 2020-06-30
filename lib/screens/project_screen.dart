@@ -5,9 +5,6 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'package:dream_tasks/stores/theme_store.dart';
-
-const String _defaultFontFamily = 'Raleway';
-
 class ProjectScreen extends StatelessWidget {
   final String name;
   final ListProjectsStore _listProjectsStore;
@@ -36,7 +33,6 @@ class ProjectScreen extends StatelessWidget {
               child: Text(
                 name,
                 style: TextStyle(
-                  fontFamily: _defaultFontFamily,
                   color: Theme.of(context).primaryColor,
                   fontSize: 40
                 ),

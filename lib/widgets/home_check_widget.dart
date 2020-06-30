@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-
-const String _defaultFontFamily = 'Raleway';
-
 class HomeCheckWidget extends StatelessWidget {
   final String title;
   final bool checked;
@@ -46,7 +43,6 @@ class HomeCheckWidget extends StatelessWidget {
                 Theme.of(context).accentColor : 
                 Color(0xFFFFFFFF) ,
               fontSize: 15,
-              fontFamily: _defaultFontFamily,
               fontWeight: FontWeight.bold
             ),
           )

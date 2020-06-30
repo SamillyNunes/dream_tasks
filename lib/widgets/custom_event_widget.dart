@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-const String _defaultFontFamily = 'Raleway';
-
 class CustomEventWidget extends StatelessWidget {
   final String _titleEvent;
   final String _descriptionEvent;
@@ -27,7 +25,6 @@ class CustomEventWidget extends StatelessWidget {
               _titleEvent,
               style: TextStyle(
                 color: Color(0xFFFFFFFF), //fixo
-                fontFamily: _defaultFontFamily,
                 fontSize: 20
 
               ),
@@ -36,7 +33,6 @@ class CustomEventWidget extends StatelessWidget {
               _descriptionEvent,
               style: TextStyle(
                 color:  Color(0xFFFFFFFF), //fixo
-                fontFamily: _defaultFontFamily,
                 fontSize: 10
               ),
             ),

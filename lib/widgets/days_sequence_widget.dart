@@ -2,8 +2,6 @@ import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const String _defaultFontFamily = 'Raleway';
-
 class DaysSequenceWidget extends StatelessWidget {
 
   final int sequence;
@@ -29,7 +27,6 @@ class DaysSequenceWidget extends StatelessWidget {
               'Você completou sua meta $sequence dias seguidos!',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontFamily: _defaultFontFamily,
                 color: Theme.of(context).primaryColor,
                 fontSize: 20
               ),
@@ -40,7 +37,6 @@ class DaysSequenceWidget extends StatelessWidget {
             child: Text(
               'Seu recorde é de $record dias',
               style: TextStyle(
-                fontFamily: _defaultFontFamily,
                 color: Theme.of(context).primaryColorDark,
                 fontSize: 15
               ),

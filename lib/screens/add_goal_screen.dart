@@ -25,6 +25,7 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
   final ListTaskStore _listTaskStore;
   final DayStore _dayStore;
   DateTime _dateTime;
+  List<int> repeatDaysTemporary = [];
 
   _AddGoalScreenState(this._listTaskStore, this._dayStore);
 
@@ -127,13 +128,55 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               // crossAxisAlignment: CrossAxisAlignment.center
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                CustomSelectWeekday('Seg'),
-                CustomSelectWeekday('Ter'),
-                CustomSelectWeekday('Qua'),
-                CustomSelectWeekday('Qui'),
-                CustomSelectWeekday('Sex'),
-                CustomSelectWeekday('Sab'),
-                CustomSelectWeekday('Dom'),
+                CustomSelectWeekday(
+                  'Seg',
+                  onCheckWeed: (value){
+                    int num = 0;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
+                CustomSelectWeekday(
+                  'Ter',
+                  onCheckWeed: (value){
+                    int num = 1;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
+                CustomSelectWeekday(
+                  'Qua',
+                  onCheckWeed: (value){
+                    int num = 2;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
+                CustomSelectWeekday(
+                  'Qui',
+                  onCheckWeed: (value){
+                    int num = 3;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
+                CustomSelectWeekday(
+                  'Sex',
+                  onCheckWeed: (value){
+                    int num = 4;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
+                CustomSelectWeekday(
+                  'Sab',
+                  onCheckWeed: (value){
+                    int num = 5;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
+                CustomSelectWeekday(
+                  'Dom',
+                  onCheckWeed: (value){
+                    int num = 6;
+                    value ? repeatDaysTemporary.add(num) : repeatDaysTemporary.remove(num);
+                  },
+                ),
               ],
             ),
             Padding(
@@ -147,7 +190,9 @@ class _AddGoalScreenState extends State<AddGoalScreen> {
               child: FlatButton(
                 onPressed: (){
                   
-                  _listTaskStore.addTask(_dateTime, _dayStore.dateSelected);
+                  print("days:"+repeatDaysTemporary.toString());
+                  _listTaskStore.addTask(_dateTime, _dayStore.dateSelected, repeatDaysTemporary );
+                  repeatDaysTemporary.clear();
                   
                   Navigator.of(context).pop();
                 }, 

@@ -38,9 +38,14 @@ dev_dependencies:
     sdk: flutter
   mobx_codegen: ^1.1.0 # vao gerar um codigo para separar as coisas
   build_runner: ^1.10.0  #gera arquivos usando o dart, fora do pub. os arquivos sao salvos diretamente no disco e incrementais (so atualiza oq ta faltando)
-  
+  flutter_launcher_icons: ^0.7.5
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "images/logo-dream-tasks.png"
 
 # The following section is specific to Flutter.
 flutter:

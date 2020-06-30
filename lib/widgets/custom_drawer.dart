@@ -27,11 +27,11 @@ class CustomDrawer extends StatelessWidget {
                         Image.asset('images/icons/back-three-lines.png')
                         : Image.asset('images/icons/light-theme/back-three-lines-light.png')
               ),
-              DrawerItemButton(0, _drawerStore),
-              DrawerItemButton(1, _drawerStore),
-              DrawerItemButton(2, _drawerStore),
-              DrawerItemButton(3, _drawerStore),
-              DrawerItemButton(4, _drawerStore),
+              DrawerItemButton(0),
+              DrawerItemButton(1),
+              DrawerItemButton(2),
+              DrawerItemButton(3),
+              DrawerItemButton(4),
             ],
           )
         ),

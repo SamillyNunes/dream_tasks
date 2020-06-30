@@ -1,7 +1,5 @@
-import 'package:dream_tasks/global/app_themes.dart';
-import 'package:dream_tasks/screens/goals_screen.dart';
-import 'package:dream_tasks/screens/home_screen.dart';
-import 'package:dream_tasks/screens/settings_screen.dart';
+import 'package:dream_tasks/screens/splash_screen.dart';
+import 'package:dream_tasks/stores/drawer_store.dart';
 import 'package:dream_tasks/stores/list_task_store.dart';
 import 'package:dream_tasks/stores/theme_store.dart';
 import 'package:flutter/material.dart';
@@ -20,17 +18,18 @@ class MyApp extends StatelessWidget {
         ),
         Provider<ThemeStore>(
           create: (_)=>ThemeStore(),
+        ),
+        Provider<DrawerStore>(
+          create: (_)=>DrawerStore(),
         )
       ],
       child: Observer(
         builder: (context){
-          Provider.of<ThemeStore>(context).getTheme();
-
           return MaterialApp(
             title: 'Dream Tasks',
             debugShowCheckedModeBanner: false,
             theme: Provider.of<ThemeStore>(context).themeData,
-            home: HomeScreen(),
+            home: SplashScreen(),
           );
         },
       )

@@ -10,9 +10,9 @@ import 'package:provider/provider.dart';
 
 class DrawerItemButton extends StatelessWidget {
   final int index;
-  final DrawerStore _drawerStore;
+  DrawerStore _drawerStore;
   
-  DrawerItemButton(this.index, this._drawerStore);
+  DrawerItemButton(this.index);
 
 
   final List<String> _itemsIcons = [
@@ -50,6 +50,8 @@ class DrawerItemButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    _drawerStore = Provider.of<DrawerStore>(context);
+    
     return GestureDetector(
       onTap: (){
         _drawerStore.setIndex(index);
